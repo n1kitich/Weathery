@@ -9,7 +9,8 @@ import Foundation
 
 class NetworkService {
     
-    func fetchRequest(urlString: String, completion: @escaping (Result<WeatherModel, Error>) -> Void) {
+    func fetchRequest(url: String, place: String, completion: @escaping (Result<WeatherModel, Error>) -> Void) {
+        let urlString = url + "/" + place
         guard let url = URL(string: urlString) else { return }
         
         URLSession.shared.dataTask(with: url) { (data, response, error) in
