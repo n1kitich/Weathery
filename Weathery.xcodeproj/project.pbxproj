@@ -15,6 +15,7 @@
 		1F9394A62688B96600404BAF /* WeatherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9394A52688B96600404BAF /* WeatherViewController.swift */; };
 		1F9394AE2688BE5000404BAF /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9394AD2688BE5000404BAF /* NetworkService.swift */; };
 		1F9394B62688BF8B00404BAF /* WeatherModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9394B52688BF8B00404BAF /* WeatherModel.swift */; };
+		1FD67A9D2689D8170031C122 /* ForecastHistoryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD67A9C2689D8170031C122 /* ForecastHistoryVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		1F9394A52688B96600404BAF /* WeatherViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewController.swift; sourceTree = "<group>"; };
 		1F9394AD2688BE5000404BAF /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		1F9394B52688BF8B00404BAF /* WeatherModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherModel.swift; sourceTree = "<group>"; };
+		1FD67A9C2689D8170031C122 /* ForecastHistoryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastHistoryVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +75,7 @@
 			isa = PBXGroup;
 			children = (
 				1F9394A52688B96600404BAF /* WeatherViewController.swift */,
+				1FD67A9C2689D8170031C122 /* ForecastHistoryVC.swift */,
 				1F9394952688A02200404BAF /* Main.storyboard */,
 				1F93949A2688A02300404BAF /* LaunchScreen.storyboard */,
 			);
@@ -177,6 +180,7 @@
 			files = (
 				1F9394902688A02200404BAF /* AppDelegate.swift in Sources */,
 				1F9394A62688B96600404BAF /* WeatherViewController.swift in Sources */,
+				1FD67A9D2689D8170031C122 /* ForecastHistoryVC.swift in Sources */,
 				1F9394AE2688BE5000404BAF /* NetworkService.swift in Sources */,
 				1F9394922688A02200404BAF /* SceneDelegate.swift in Sources */,
 				1F9394B62688BF8B00404BAF /* WeatherModel.swift in Sources */,

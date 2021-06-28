@@ -12,33 +12,37 @@ class WeatherViewController: UIViewController {
     @IBOutlet weak var searchLine: UITextField!
     
     var weatherModel: WeatherModel?
-    let url = "https://goweather.herokuapp.com/weather"
     let networkService = NetworkService()
+    
+    let segueID = "goToHistory"
+    let url = "https://goweather.herokuapp.com/weather"
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         searchLineSetup()
+    }
+    
+    @IBAction func toForecastHistory(_ sender: UIBarButtonItem) {
+        performSegue(withIdentifier: segueID, sender: nil)
     }
     
     func searchLineSetup() {
         searchLine.delegate = self
         searchLine.returnKeyType = .search
+        // return button is anactive if the textField is empty
         searchLine.enablesReturnKeyAutomatically = true
     }
-    
+  
 }
 
+// MARK: - TextField Delegate
 extension WeatherViewController: UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        
         textField.resignFirstResponder()
-        
         if let text = textField.text {
             searchWeather(by: text)
         }
-        
         return true
     }
     
@@ -47,11 +51,9 @@ extension WeatherViewController: UITextFieldDelegate {
             switch result {
             case .success(let forecast):
                 self.weatherModel = forecast
-                print(self.weatherModel)
             case .failure(let error):
                 print(error.localizedDescription)
             }
-            
         }
     }
 }
