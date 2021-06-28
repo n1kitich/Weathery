@@ -10,6 +10,9 @@ import UIKit
 class WeatherViewController: UIViewController {
 
     @IBOutlet weak var searchLine: UITextField!
+    @IBOutlet weak var placeLabel: UILabel!
+    @IBOutlet weak var descriptionLabel: UILabel!
+    @IBOutlet weak var temperatureLabel: UILabel!
     
     var weatherModel: WeatherModel?
     let networkService = NetworkService()
@@ -19,6 +22,11 @@ class WeatherViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        placeLabel.isHidden = true
+        descriptionLabel.isHidden = true
+        temperatureLabel.isHidden = true
+        
         searchLineSetup()
     }
     
@@ -28,11 +36,23 @@ class WeatherViewController: UIViewController {
     
     func searchLineSetup() {
         searchLine.delegate = self
+        searchLine.autocapitalizationType = .words
         searchLine.returnKeyType = .search
         // return button is anactive if the textField is empty
         searchLine.enablesReturnKeyAutomatically = true
     }
   
+    func displayData() {
+        placeLabel.isHidden = false
+        descriptionLabel.isHidden = false
+        temperatureLabel.isHidden = false
+        
+        let weatherDescription = weatherModel!.description + ", " + weatherModel!.wind
+        placeLabel.text = searchLine.text
+        descriptionLabel.text = weatherDescription
+        temperatureLabel.text = weatherModel?.temperature
+    }
+    
 }
 
 // MARK: - TextField Delegate
@@ -51,6 +71,7 @@ extension WeatherViewController: UITextFieldDelegate {
             switch result {
             case .success(let forecast):
                 self.weatherModel = forecast
+                self.displayData()
             case .failure(let error):
                 print(error.localizedDescription)
             }
