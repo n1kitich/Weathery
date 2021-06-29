@@ -9,9 +9,10 @@ import UIKit
 
 class WeatherViewController: UIViewController {
 
-    @IBOutlet weak var searchLine: UITextField!
+    @IBOutlet weak var searchLine: UISearchBar!
     @IBOutlet weak var placeLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
+    @IBOutlet weak var windLabel: UILabel!
     @IBOutlet weak var temperatureLabel: UILabel!
     
     var weatherModel: WeatherModel?
@@ -23,10 +24,12 @@ class WeatherViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        placeLabel.isHidden = true
-        descriptionLabel.isHidden = true
-        temperatureLabel.isHidden = true
+        placeLabel.text = ""
+        descriptionLabel.text = ""
+        temperatureLabel.text = ""
+        windLabel.text = ""
         
+//        hideLabels(true)
         searchLineSetup()
     }
     
@@ -38,39 +41,44 @@ class WeatherViewController: UIViewController {
         searchLine.delegate = self
         searchLine.autocapitalizationType = .words
         searchLine.returnKeyType = .search
-        // return button is anactive if the textField is empty
         searchLine.enablesReturnKeyAutomatically = true
     }
   
     func displayData() {
-        placeLabel.isHidden = false
-        descriptionLabel.isHidden = false
-        temperatureLabel.isHidden = false
+//        hideLabels(false)
         
-        let weatherDescription = weatherModel!.description + ", " + weatherModel!.wind
         placeLabel.text = searchLine.text
-        descriptionLabel.text = weatherDescription
+        windLabel.text = weatherModel!.wind
+        descriptionLabel.text = weatherModel!.description
         temperatureLabel.text = weatherModel?.temperature
     }
+    
+//    func hideLabels(_ bool: Bool) {
+//        placeLabel.isHidden = bool
+//        descriptionLabel.isHidden = bool
+//        temperatureLabel.isHidden = bool
+//        windLabel.isHidden = bool
+//    }
     
 }
 
 // MARK: - TextField Delegate
-extension WeatherViewController: UITextFieldDelegate {
+extension WeatherViewController: UISearchBarDelegate {
     
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        if let text = textField.text {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+        if let text = searchBar.text {
             searchWeather(by: text)
         }
-        return true
     }
     
     func searchWeather(by place: String) {
         networkService.fetchRequest(url: url, place: place) { result in
             switch result {
             case .success(let forecast):
-                self.weatherModel = forecast
+                DispatchQueue.global(qos: .userInitiated).async {
+                    self.weatherModel = forecast
+                }
                 self.displayData()
             case .failure(let error):
                 print(error.localizedDescription)
