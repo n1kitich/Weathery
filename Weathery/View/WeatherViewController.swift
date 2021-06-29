@@ -15,6 +15,11 @@ class WeatherViewController: UIViewController {
     @IBOutlet weak var windLabel: UILabel!
     @IBOutlet weak var temperatureLabel: UILabel!
     
+    
+    @IBOutlet var tempForecat: [UILabel]!
+    @IBOutlet var windForecat: [UILabel]!
+    
+    
     var weatherModel: WeatherModel?
     let networkService = NetworkService()
     
@@ -51,6 +56,12 @@ class WeatherViewController: UIViewController {
         windLabel.text = weatherModel!.wind
         descriptionLabel.text = weatherModel!.description
         temperatureLabel.text = weatherModel?.temperature
+        
+        let forecast = weatherModel?.forecast
+        for index in 0...2 {
+            tempForecat[index].text = forecast![index].temperature
+            windForecat[index].text = forecast![index].wind
+        }
     }
     
 //    func hideLabels(_ bool: Bool) {
