@@ -77,10 +77,21 @@ class WeatherViewController: UIViewController {
 extension WeatherViewController: UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.showsCancelButton = false
         searchBar.resignFirstResponder()
         if let text = searchBar.text {
             searchWeather(by: text)
         }
+    }
+    
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+            searchBar.showsCancelButton = true
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.text = nil
+        searchBar.showsCancelButton = false
+        searchBar.endEditing(true)
     }
     
     func searchWeather(by place: String) {
