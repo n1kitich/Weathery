@@ -13,10 +13,10 @@ struct WeatherModel: Decodable {
     let wind: String
     let description: String
     
-    let forecast: [Forecast]
+    let forecast: [ForecastModel]
 }
 
-struct Forecast: Decodable {
+struct ForecastModel: Decodable {
     let day: String
     let temperature: String
     let wind: String
