@@ -1,19 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17709" systemVersion="19H2" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="Forecast" representedClassName="Forecast" syncable="YES">
-        <attribute name="day" optional="YES" attributeType="String"/>
-        <attribute name="tempereture" optional="YES" attributeType="String"/>
-        <attribute name="wind" optional="YES" attributeType="String"/>
-        <relationship name="weather" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Weather" inverseName="forecast" inverseEntity="Weather"/>
-    </entity>
     <entity name="Weather" representedClassName="Weather" syncable="YES">
         <attribute name="descript" optional="YES" attributeType="String"/>
         <attribute name="temperature" optional="YES" attributeType="String"/>
         <attribute name="wind" optional="YES" attributeType="String"/>
-        <relationship name="forecast" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Forecast" inverseName="weather" inverseEntity="Forecast"/>
     </entity>
     <elements>
-        <element name="Weather" positionX="-63" positionY="-18" width="128" height="103"/>
-        <element name="Forecast" positionX="-373.203125" positionY="-15.30078125" width="128" height="103"/>
+        <element name="Weather" positionX="-63" positionY="-18" width="128" height="88"/>
     </elements>
 </model>

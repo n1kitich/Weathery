@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import CoreData
 
 class WeatherViewController: UIViewController {
 
@@ -14,14 +15,12 @@ class WeatherViewController: UIViewController {
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var windLabel: UILabel!
     @IBOutlet weak var temperatureLabel: UILabel!
-    
-    
     @IBOutlet var tempForecat: [UILabel]!
     @IBOutlet var windForecat: [UILabel]!
     
-    
     var weatherModel: WeatherModel?
     let networkService = NetworkService()
+    var managedObjectContext: NSManagedObjectContext!
     
     let segueID = "goToHistory"
     let url = "https://goweather.herokuapp.com/weather"
@@ -30,12 +29,26 @@ class WeatherViewController: UIViewController {
         super.viewDidLoad()
         
         hideLabels()
-        
         searchLineSetup()
+        
+        managedObjectContext = (UIApplication.shared.delegate as! AppDelegate).managedObjectContext
     }
     
     @IBAction func toForecastHistory(_ sender: UIBarButtonItem) {
         performSegue(withIdentifier: segueID, sender: nil)
+    }
+    
+    func saveContext() {
+        let newWeather = NSEntityDescription.insertNewObject(forEntityName: "Weather", into: managedObjectContext) as! Weather
+        newWeather.temperature = weatherModel?.temperature
+        newWeather.wind = weatherModel?.wind
+        newWeather.descript = weatherModel?.description
+        
+        do {
+            try managedObjectContext.save()
+        } catch let error as NSError {
+            print(error.localizedDescription)
+        }
     }
     
     func searchLineSetup() {
@@ -46,8 +59,6 @@ class WeatherViewController: UIViewController {
     }
   
     func displayData() {
-//        hideLabels(false)
-        
         placeLabel.text = searchLine.text
         windLabel.text = weatherModel!.wind
         descriptionLabel.text = weatherModel!.description
@@ -71,7 +82,6 @@ class WeatherViewController: UIViewController {
             windForecat[index].text = ""
         }
     }
-    
 }
 
 // MARK: - TextField Delegate
@@ -86,7 +96,7 @@ extension WeatherViewController: UISearchBarDelegate {
     }
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-            searchBar.showsCancelButton = true
+        searchBar.showsCancelButton = true
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
@@ -99,9 +109,10 @@ extension WeatherViewController: UISearchBarDelegate {
     func searchWeather(by place: String) {
         networkService.fetchRequest(url: url, place: place) { result in
             switch result {
-            case .success(let forecast):
+            case .success(let weather):
                 DispatchQueue.global(qos: .userInitiated).async {
-                    self.weatherModel = forecast
+                    self.weatherModel = weather
+                    self.saveContext()
                 }
                 self.displayData()
             case .failure(let error):
