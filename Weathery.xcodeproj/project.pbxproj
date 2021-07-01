@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1F62EF15268D8DF50059765A /* WeatherCD.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1F62EF13268D8DF50059765A /* WeatherCD.xcdatamodeld */; };
 		1F9394902688A02200404BAF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F93948F2688A02200404BAF /* AppDelegate.swift */; };
 		1F9394922688A02200404BAF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9394912688A02200404BAF /* SceneDelegate.swift */; };
 		1F9394972688A02200404BAF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F9394952688A02200404BAF /* Main.storyboard */; };
@@ -19,6 +20,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1F62EF14268D8DF50059765A /* WeatherCD.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = WeatherCD.xcdatamodel; sourceTree = "<group>"; };
 		1F93948C2688A02200404BAF /* Weathery.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Weathery.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F93948F2688A02200404BAF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1F9394912688A02200404BAF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -67,6 +69,7 @@
 				1F9394AC2688BE1E00404BAF /* Network */,
 				1F9394AA2688B98600404BAF /* Supporting Files */,
 				1F93949D2688A02300404BAF /* Info.plist */,
+				1F62EF13268D8DF50059765A /* WeatherCD.xcdatamodeld */,
 			);
 			path = Weathery;
 			sourceTree = "<group>";
@@ -184,6 +187,7 @@
 				1F9394AE2688BE5000404BAF /* NetworkService.swift in Sources */,
 				1F9394922688A02200404BAF /* SceneDelegate.swift in Sources */,
 				1F9394B62688BF8B00404BAF /* WeatherModel.swift in Sources */,
+				1F62EF15268D8DF50059765A /* WeatherCD.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -385,6 +389,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		1F62EF13268D8DF50059765A /* WeatherCD.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				1F62EF14268D8DF50059765A /* WeatherCD.xcdatamodel */,
+			);
+			currentVersion = 1F62EF14268D8DF50059765A /* WeatherCD.xcdatamodel */;
+			path = WeatherCD.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 1F9394842688A02200404BAF /* Project object */;
 }
