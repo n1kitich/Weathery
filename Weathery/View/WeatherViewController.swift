@@ -29,12 +29,8 @@ class WeatherViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        placeLabel.text = ""
-        descriptionLabel.text = ""
-        temperatureLabel.text = ""
-        windLabel.text = ""
+        hideLabels()
         
-//        hideLabels(true)
         searchLineSetup()
     }
     
@@ -64,12 +60,17 @@ class WeatherViewController: UIViewController {
         }
     }
     
-//    func hideLabels(_ bool: Bool) {
-//        placeLabel.isHidden = bool
-//        descriptionLabel.isHidden = bool
-//        temperatureLabel.isHidden = bool
-//        windLabel.isHidden = bool
-//    }
+    func hideLabels() {
+        placeLabel.text = ""
+        descriptionLabel.text = ""
+        temperatureLabel.text = ""
+        windLabel.text = ""
+        
+        for index in 0...2 {
+            tempForecat[index].text = ""
+            windForecat[index].text = ""
+        }
+    }
     
 }
 
@@ -90,6 +91,7 @@ extension WeatherViewController: UISearchBarDelegate {
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.text = nil
+        hideLabels()
         searchBar.showsCancelButton = false
         searchBar.endEditing(true)
     }
