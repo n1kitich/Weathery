@@ -73,7 +73,6 @@
 				1F9394AC2688BE1E00404BAF /* Network */,
 				1F9394AA2688B98600404BAF /* Supporting Files */,
 				1F93949D2688A02300404BAF /* Info.plist */,
-				1F62EF13268D8DF50059765A /* WeatherCD.xcdatamodeld */,
 			);
 			path = Weathery;
 			sourceTree = "<group>";
@@ -113,6 +112,7 @@
 				1F9394B52688BF8B00404BAF /* WeatherModel.swift */,
 				1F0A6D3C268DF9FF003976C5 /* Weather+CoreDataClass.swift */,
 				1F0A6D3D268DF9FF003976C5 /* Weather+CoreDataProperties.swift */,
+				1F62EF13268D8DF50059765A /* WeatherCD.xcdatamodeld */,
 			);
 			path = Model;
 			sourceTree = "<group>";
