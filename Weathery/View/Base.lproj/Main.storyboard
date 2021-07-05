@@ -139,7 +139,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Igb-B3-DdL">
-                        <barButtonItem key="rightBarButtonItem" title="Item" id="YRX-GU-5jN">
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="line.horizontal.3" catalog="system" id="YRX-GU-5jN">
                             <connections>
                                 <action selector="toForecastHistory:" destination="BYZ-38-t0r" id="Ry0-AE-ukA"/>
                             </connections>
@@ -215,6 +215,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="line.horizontal.3" catalog="system" width="128" height="64"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

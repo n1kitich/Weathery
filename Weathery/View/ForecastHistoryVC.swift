@@ -22,6 +22,17 @@ class ForecastHistoryVC: UIViewController, NSFetchedResultsControllerDelegate {
         
         setupTableView()
         setupFetchedController()
+        
+//        let fetchRequest: NSFetchRequest<Weather> = Weather.fetchRequest()
+//        do {
+//            let objects = try managedObjectContext.fetch(fetchRequest)
+//            for object in objects {
+//                print("\(object.descript)")
+//            }
+//        }
+//        catch {
+//            print("Data is losing")
+//        }
     }
     
     func setupTableView() {
@@ -32,9 +43,15 @@ class ForecastHistoryVC: UIViewController, NSFetchedResultsControllerDelegate {
     
     func setupFetchedController() {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Weather")
-        let sortDescriptor = NSSortDescriptor(key: "descript", ascending: true)
+        let sortDescriptor = NSSortDescriptor(key: "temperature", ascending: true)
         fetchRequest.sortDescriptors = [sortDescriptor]
         fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
+        
+        do {
+            try fetchedResultsController.performFetch()
+        } catch {
+            print("Fetch is losing")
+        }
     }
 
 }
