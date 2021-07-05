@@ -14,31 +14,20 @@ class ForecastHistoryVC: UIViewController, NSFetchedResultsControllerDelegate {
     var managedObjectContext: NSManagedObjectContext!
     var fetchedResultsController = NSFetchedResultsController<NSFetchRequestResult>()
     
-    let cellID = "cellIdentifier"
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         managedObjectContext = (UIApplication.shared.delegate as! AppDelegate).managedObjectContext
         
         setupTableView()
         setupFetchedController()
-        
-//        let fetchRequest: NSFetchRequest<Weather> = Weather.fetchRequest()
-//        do {
-//            let objects = try managedObjectContext.fetch(fetchRequest)
-//            for object in objects {
-//                print("\(object.descript)")
-//            }
-//        }
-//        catch {
-//            print("Data is losing")
-//        }
+
     }
     
     func setupTableView() {
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellID)
+//        tableView.register(ForecastViewCell.self, forCellReuseIdentifier: ForecastViewCell.cellIdentifier)
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: ForecastViewCell.cellIdentifier)
     }
     
     func setupFetchedController() {
@@ -64,8 +53,10 @@ extension ForecastHistoryVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: ForecastViewCell.cellIdentifier, for: indexPath) //as! ForecastViewCell
+        
         let object = fetchedResultsController.object(at: indexPath) as! Weather
+//        cell.configure(temperature: object.temperature!, description: object.descript!)
         cell.textLabel?.text = object.descript
         return cell
     }
