@@ -8,42 +8,45 @@
 import UIKit
 import CoreData
 
-class ForecastHistoryVC: UIViewController, NSFetchedResultsControllerDelegate {
+class ForecastHistoryVC: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
-    var managedObjectContext: NSManagedObjectContext!
+    var managedObjectContext = (UIApplication.shared.delegate as! AppDelegate).managedObjectContext
     var fetchedResultsController = NSFetchedResultsController<NSFetchRequestResult>()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupTableView()
-
-        managedObjectContext = (UIApplication.shared.delegate as! AppDelegate).managedObjectContext
-        setupFetchedController()
-    }
-    
-    func setupTableView() {
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.register(ForecastViewCell.nib(), forCellReuseIdentifier: ForecastViewCell.cellIdentifier)
-     
-    }
-    
-    func setupFetchedController() {
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Weather")
-        let sortDescriptor = NSSortDescriptor(key: "temperature", ascending: true)
-        fetchRequest.sortDescriptors = [sortDescriptor]
-        fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
         
+        setupTableView()
+        
+        fetchedResultsController = getFetchedController()
+        fetchedResultsController.delegate = self
         do {
             try fetchedResultsController.performFetch()
         } catch {
             print("Fetch is losing")
         }
     }
+    
+    func setupTableView() {
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.register(ForecastViewCell.nib(), forCellReuseIdentifier: ForecastViewCell.cellIdentifier)
+    }
+    
+    func getFetchedController() -> NSFetchedResultsController<NSFetchRequestResult> {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Weather")
+        let sortDescriptor = NSSortDescriptor(key: "temperature", ascending: true)
+        fetchRequest.sortDescriptors = [sortDescriptor]
+        
+        let fetchResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
+        
+        return fetchResultsController
+    }
 
 }
 
+// MARK: Configure table view
 extension ForecastHistoryVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -59,6 +62,35 @@ extension ForecastHistoryVC: UITableViewDelegate, UITableViewDataSource {
         cell.descriptLabel.text = object.descript
 //        cell.configure(temperature: object.temperature!, descript: object.descript!)
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        
+        let managedObject = fetchedResultsController.object(at: indexPath) as! NSManagedObject
+        
+        if editingStyle == .delete {
+            managedObjectContext.delete(managedObject)
+            do {
+                try managedObjectContext.save()
+            } catch {
+                print("Failed to delete object")
+            }
+        }
+    }
+}
+    
+//MARK: - Refresh fetched controller
+extension ForecastHistoryVC: NSFetchedResultsControllerDelegate {
+    
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+
+        if type == .delete {
+            tableView.deleteRows(at: [indexPath!], with: .left)
+        }
+    }
+        
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        tableView.reloadData()
     }
     
 }
