@@ -16,18 +16,17 @@ class ForecastHistoryVC: UIViewController, NSFetchedResultsControllerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        managedObjectContext = (UIApplication.shared.delegate as! AppDelegate).managedObjectContext
-        
         setupTableView()
-        setupFetchedController()
 
+        managedObjectContext = (UIApplication.shared.delegate as! AppDelegate).managedObjectContext
+        setupFetchedController()
     }
     
     func setupTableView() {
         tableView.delegate = self
         tableView.dataSource = self
-//        tableView.register(ForecastViewCell.self, forCellReuseIdentifier: ForecastViewCell.cellIdentifier)
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: ForecastViewCell.cellIdentifier)
+        tableView.register(ForecastViewCell.nib(), forCellReuseIdentifier: ForecastViewCell.cellIdentifier)
+     
     }
     
     func setupFetchedController() {
@@ -53,11 +52,12 @@ extension ForecastHistoryVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: ForecastViewCell.cellIdentifier, for: indexPath) //as! ForecastViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: ForecastViewCell.cellIdentifier, for: indexPath) as! ForecastViewCell
         
         let object = fetchedResultsController.object(at: indexPath) as! Weather
-//        cell.configure(temperature: object.temperature!, description: object.descript!)
-        cell.textLabel?.text = object.descript
+        cell.tempLabel.text = object.temperature
+        cell.descriptLabel.text = object.descript
+//        cell.configure(temperature: object.temperature!, descript: object.descript!)
         return cell
     }
     
