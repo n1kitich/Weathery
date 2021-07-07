@@ -40,9 +40,9 @@ class WeatherViewController: UIViewController {
     
     func saveContext() {
         let newWeather = NSEntityDescription.insertNewObject(forEntityName: "Weather", into: managedObjectContext) as! Weather
-        newWeather.temperature = weatherModel?.temperature
-        newWeather.wind = weatherModel?.wind
-        newWeather.descript = weatherModel?.description
+//        newWeather.temperature = weatherModel?.temperature
+//        newWeather.wind = weatherModel?.wind
+//        newWeather.descript = weatherModel?.description
         
         do {
             try managedObjectContext.save()
@@ -60,14 +60,14 @@ class WeatherViewController: UIViewController {
   
     func displayData() {
         placeLabel.text = searchLine.text
-        windLabel.text = weatherModel!.wind
-        descriptionLabel.text = weatherModel!.description
-        temperatureLabel.text = weatherModel?.temperature
-        
-        let forecast = weatherModel?.forecast
+//        windLabel.text = weatherModel!.wind
+//        descriptionLabel.text = weatherModel!.description
+//        temperatureLabel.text = weatherModel?.temperature
+//
+//        let forecast = weatherModel?.forecast
         for index in 0...2 {
-            tempForecat[index].text = forecast![index].temperature
-            windForecat[index].text = forecast![index].wind
+//            tempForecat[index].text = forecast![index].temperature
+//            windForecat[index].text = forecast![index].wind
         }
     }
     
@@ -107,17 +107,35 @@ extension WeatherViewController: UISearchBarDelegate {
     }
     
     func searchWeather(by place: String) {
-        networkService.fetchRequest(url: url, place: place) { result in
+//        networkService.fetchRequest(url: url, place: place) { result in
+//            switch result {
+//            case .success(let weather):
+//                DispatchQueue.global(qos: .userInitiated).async {
+//                    self.weatherModel = weather
+//                    self.saveContext()
+//                }
+//                self.displayData()
+//            case .failure(let error):
+//                print(error.localizedDescription)
+//            }
+//        }
+        
+        networkService.fetchRequest(
+            urlString: "http://api.weatherstack.com/current",
+            accessKey: "503bc119ccde64a16ae23720599aa21f",
+            query: place
+        ) { result in
             switch result {
-            case .success(let weather):
-                DispatchQueue.global(qos: .userInitiated).async {
-                    self.weatherModel = weather
-                    self.saveContext()
-                }
-                self.displayData()
-            case .failure(let error):
-                print(error.localizedDescription)
+                case .success(let weather):
+                    DispatchQueue.global(qos: .userInitiated).async {
+                        self.weatherModel = weather
+                        self.saveContext()
+                    }
+                    self.displayData()
+                case .failure(let error):
+                    print(error.localizedDescription)
             }
         }
     }
+    
 }
