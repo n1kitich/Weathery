@@ -12,15 +12,17 @@ class WeatherViewController: UIViewController {
 
     @IBOutlet weak var searchLine: UISearchBar!
     @IBOutlet weak var placeLabel: UILabel!
+    @IBOutlet weak var updatedTimeLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
-    @IBOutlet weak var windLabel: UILabel!
     @IBOutlet weak var temperatureLabel: UILabel!
-    @IBOutlet var tempForecat: [UILabel]!
-    @IBOutlet var windForecat: [UILabel]!
+    @IBOutlet weak var feellikeLabel: UILabel!
+    @IBOutlet weak var windLabel: UILabel!
+    @IBOutlet weak var pressureLabel: UILabel!
+    @IBOutlet weak var humidityLabel: UILabel!
     
     var weatherModel: WeatherModel?
     let networkService = NetworkService()
-    var managedObjectContext: NSManagedObjectContext!
+    var managedObjectContext = (UIApplication.shared.delegate as! AppDelegate).managedObjectContext
     
     let segueID = "goToHistory"
     let url = "https://goweather.herokuapp.com/weather"
@@ -30,8 +32,6 @@ class WeatherViewController: UIViewController {
         
         hideLabels()
         searchLineSetup()
-        
-        managedObjectContext = (UIApplication.shared.delegate as! AppDelegate).managedObjectContext
     }
     
     @IBAction func toForecastHistory(_ sender: UIBarButtonItem) {
@@ -39,15 +39,30 @@ class WeatherViewController: UIViewController {
     }
     
     func saveContext() {
-        let newWeather = NSEntityDescription.insertNewObject(forEntityName: "Weather", into: managedObjectContext) as! Weather
-//        newWeather.temperature = weatherModel?.temperature
-//        newWeather.wind = weatherModel?.wind
-//        newWeather.descript = weatherModel?.description
-        
-        do {
-            try managedObjectContext.save()
-        } catch let error as NSError {
-            print(error.localizedDescription)
+//        let newWeather = NSEntityDescription.insertNewObject(forEntityName: "Weather", into: managedObjectContext) as! Weather
+//        newWeather.temperature = weatherModel?.current.temperature
+//        newWeather.wind = weatherModel?.current.windSpeed
+//        newWeather.descript = weatherModel?.current.weatherDescriptions.first
+//
+//        do {
+//            try managedObjectContext.save()
+//        } catch let error as NSError {
+//            print(error.localizedDescription)
+//        }
+    }
+    
+    func displayData() {
+        if let location = weatherModel?.location {
+            placeLabel.text = location.name
+            updatedTimeLabel.text = location.localtime
+        }
+        if let current = weatherModel?.current {
+            descriptionLabel.text = current.weatherDescriptions.first
+            temperatureLabel.text = String(current.temperature)
+            feellikeLabel.text = String(current.feelslike)
+            windLabel.text = String(current.windSpeed)
+            pressureLabel.text = String(current.pressure)
+            humidityLabel.text = String(current.humidity)
         }
     }
     
@@ -57,34 +72,20 @@ class WeatherViewController: UIViewController {
         searchLine.returnKeyType = .search
         searchLine.enablesReturnKeyAutomatically = true
     }
-  
-    func displayData() {
-        placeLabel.text = searchLine.text
-//        windLabel.text = weatherModel!.wind
-//        descriptionLabel.text = weatherModel!.description
-//        temperatureLabel.text = weatherModel?.temperature
-//
-//        let forecast = weatherModel?.forecast
-        for index in 0...2 {
-//            tempForecat[index].text = forecast![index].temperature
-//            windForecat[index].text = forecast![index].wind
-        }
-    }
     
     func hideLabels() {
         placeLabel.text = ""
+        updatedTimeLabel.text = ""
         descriptionLabel.text = ""
         temperatureLabel.text = ""
+        feellikeLabel.text = ""
         windLabel.text = ""
-        
-        for index in 0...2 {
-            tempForecat[index].text = ""
-            windForecat[index].text = ""
-        }
+        pressureLabel.text = ""
+        humidityLabel.text = ""
     }
 }
 
-// MARK: - TextField Delegate
+// MARK: - UISearchBarDelegate
 extension WeatherViewController: UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
@@ -107,19 +108,6 @@ extension WeatherViewController: UISearchBarDelegate {
     }
     
     func searchWeather(by place: String) {
-//        networkService.fetchRequest(url: url, place: place) { result in
-//            switch result {
-//            case .success(let weather):
-//                DispatchQueue.global(qos: .userInitiated).async {
-//                    self.weatherModel = weather
-//                    self.saveContext()
-//                }
-//                self.displayData()
-//            case .failure(let error):
-//                print(error.localizedDescription)
-//            }
-//        }
-        
         networkService.fetchRequest(
             urlString: "http://api.weatherstack.com/current",
             accessKey: "503bc119ccde64a16ae23720599aa21f",

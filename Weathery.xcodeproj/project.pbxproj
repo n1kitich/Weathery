@@ -72,6 +72,7 @@
 		1F93948E2688A02200404BAF /* Weathery */ = {
 			isa = PBXGroup;
 			children = (
+				1F93948F2688A02200404BAF /* AppDelegate.swift */,
 				1F9394A92688B97700404BAF /* View */,
 				1F9394B42688BF7A00404BAF /* Model */,
 				1F9394AC2688BE1E00404BAF /* Network */,
@@ -97,7 +98,6 @@
 		1F9394AA2688B98600404BAF /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				1F93948F2688A02200404BAF /* AppDelegate.swift */,
 				1F9394912688A02200404BAF /* SceneDelegate.swift */,
 				1F9394982688A02300404BAF /* Assets.xcassets */,
 			);
