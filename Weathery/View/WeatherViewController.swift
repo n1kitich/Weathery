@@ -41,7 +41,7 @@ class WeatherViewController: UIViewController {
     func saveContext() {
 //        let newWeather = NSEntityDescription.insertNewObject(forEntityName: "Weather", into: managedObjectContext) as! Weather
 //        newWeather.temperature = weatherModel?.current.temperature
-//        newWeather.wind = weatherModel?.current.windSpeed
+//        newWeather.wind = weatherModel?.location.localtime
 //        newWeather.descript = weatherModel?.current.weatherDescriptions.first
 //
 //        do {

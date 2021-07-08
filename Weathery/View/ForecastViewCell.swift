@@ -9,8 +9,11 @@ import UIKit
 
 class ForecastViewCell: UITableViewCell {
     
+    @IBOutlet weak var localtimeLabel: UILabel!
+    @IBOutlet weak var placeLabel: UILabel!
     @IBOutlet weak var tempLabel: UILabel!
     @IBOutlet weak var descriptLabel: UILabel!
+    
     
     static let cellIdentifier = "Cell"
     
