@@ -9,13 +9,13 @@ import Foundation
 
 // MARK: - DataModel
 struct WeatherModel: Codable {
-    let request: Request
-    let location: Location
-    let current: Current
+    let request: RequestModel
+    let location: LocationModel
+    let current: CurrentModel
 }
 
 // MARK: - Current
-struct Current: Codable {
+struct CurrentModel: Codable {
     let observationTime: String
     let temperature, weatherCode: Int
     let weatherIcons: [String]
@@ -43,7 +43,7 @@ struct Current: Codable {
 }
 
 // MARK: - Location
-struct Location: Codable {
+struct LocationModel: Codable {
     let name, country, region, lat: String
     let lon, timezoneID, localtime: String
     let localtimeEpoch: Int
@@ -59,6 +59,6 @@ struct Location: Codable {
 }
 
 // MARK: - Request
-struct Request: Codable {
+struct RequestModel: Codable {
     let type, query, language, unit: String
 }

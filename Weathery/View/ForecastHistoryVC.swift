@@ -58,8 +58,8 @@ extension ForecastHistoryVC: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: ForecastViewCell.cellIdentifier, for: indexPath) as! ForecastViewCell
         
         let object = fetchedResultsController.object(at: indexPath) as! Weather
-        cell.tempLabel.text = object.temperature
-        cell.descriptLabel.text = object.descript
+//        cell.tempLabel.text = object.temperature
+//        cell.descriptLabel.text = object.descript
 //        cell.configure(temperature: object.temperature!, descript: object.descript!)
         return cell
     }
@@ -83,7 +83,6 @@ extension ForecastHistoryVC: UITableViewDelegate, UITableViewDataSource {
 extension ForecastHistoryVC: NSFetchedResultsControllerDelegate {
     
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
-
         if type == .delete {
             tableView.deleteRows(at: [indexPath!], with: .left)
         }
