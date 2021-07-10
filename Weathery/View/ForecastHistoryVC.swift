@@ -58,9 +58,10 @@ extension ForecastHistoryVC: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: ForecastViewCell.cellIdentifier, for: indexPath) as! ForecastViewCell
         
         let object = fetchedResultsController.object(at: indexPath) as! Weather
-//        cell.tempLabel.text = object.temperature
-//        cell.descriptLabel.text = object.descript
-//        cell.configure(temperature: object.temperature!, descript: object.descript!)
+        cell.localtimeLabel.text = object.location?.localtime
+        cell.placeLabel.text = object.location?.name
+        cell.tempLabel.text = "\(object.current!.temperature)"
+        cell.descriptLabel.text = object.current?.weatherDescriptions
         return cell
     }
     

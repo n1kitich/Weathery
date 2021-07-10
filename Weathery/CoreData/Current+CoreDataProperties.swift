@@ -27,8 +27,8 @@ extension Current {
     @NSManaged public var uvIndex: Int16
     @NSManaged public var visibility: Int16
     @NSManaged public var weatherCode: Int16
-    @NSManaged public var weatherDescriptions: NSObject?
-    @NSManaged public var weatherIcons: NSObject?
+    @NSManaged public var weatherDescriptions: String
+    @NSManaged public var weatherIcons: String
     @NSManaged public var windDegree: Int16
     @NSManaged public var windDir: String?
     @NSManaged public var windSpeed: Int16
