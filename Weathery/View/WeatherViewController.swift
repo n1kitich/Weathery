@@ -29,41 +29,12 @@ class WeatherViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         hideLabels()
         searchLineSetup()
     }
     
     @IBAction func toForecastHistory(_ sender: UIBarButtonItem) {
         performSegue(withIdentifier: segueID, sender: nil)
-    }
-    
-    func saveContext() {
-//        let newWeather = NSEntityDescription.insertNewObject(forEntityName: "Weather", into: managedObjectContext) as! Weather
-//        newWeather.temperature = weatherModel?.current.temperature
-//        newWeather.wind = weatherModel?.location.localtime
-//        newWeather.descript = weatherModel?.current.weatherDescriptions.first
-//
-//        do {
-//            try managedObjectContext.save()
-//        } catch let error as NSError {
-//            print(error.localizedDescription)
-//        }
-    }
-    
-    func displayData() {
-        if let location = weatherModel?.location {
-            placeLabel.text = location.name
-            updatedTimeLabel.text = location.localtime
-        }
-        if let current = weatherModel?.current {
-            descriptionLabel.text = current.weatherDescriptions.first
-            temperatureLabel.text = String(current.temperature)
-            feellikeLabel.text = String(current.feelslike)
-            windLabel.text = String(current.windSpeed)
-            pressureLabel.text = String(current.pressure)
-            humidityLabel.text = String(current.humidity)
-        }
     }
     
     func searchLineSetup() {
@@ -83,6 +54,51 @@ class WeatherViewController: UIViewController {
         pressureLabel.text = ""
         humidityLabel.text = ""
     }
+    
+    func displayData() {
+        placeLabel.text = weatherModel?.location.name
+        updatedTimeLabel.text = weatherModel?.location.localtime
+        descriptionLabel.text = weatherModel?.current.weatherDescriptions.first
+        temperatureLabel.text = String((weatherModel?.current.temperature)!)
+        feellikeLabel.text = "Feel like: " + String((weatherModel?.current.feelslike)!)
+        windLabel.text = String((weatherModel?.current.windSpeed)!)
+        pressureLabel.text = String((weatherModel?.current.pressure)!)
+        humidityLabel.text = String((weatherModel?.current.humidity)!)
+    }
+    
+    func saveContext() {
+        let weather = NSEntityDescription.insertNewObject(forEntityName: "Weather", into: managedObjectContext) as! Weather
+        
+        weather.location?.name = weatherModel?.location.name
+        weather.current?.temperature = Int16((weatherModel?.current.temperature)!)
+        weather.location?.localtime = weatherModel?.location.localtime
+        weather.current?.weatherDescriptions = (weatherModel?.current.weatherDescriptions.first)!
+
+        do {
+            try managedObjectContext.save()
+        } catch let error as NSError {
+            print(error.localizedDescription)
+        }
+    }
+    
+    func searchWeather(by place: String) {
+        networkService.fetchRequest(
+            urlString: "http://api.weatherstack.com/current",
+            accessKey: "503bc119ccde64a16ae23720599aa21f",
+            query: place
+        ) { result in
+            switch result {
+                case .success(let weather):
+                    // многопоточность, тестировать
+                    self.weatherModel = weather
+                    self.saveContext()
+                    self.displayData()
+                case .failure(let error):
+                    print("Fetch data error: \(error.localizedDescription)")
+            }
+        }
+    }
+    
 }
 
 // MARK: - UISearchBarDelegate
@@ -101,29 +117,10 @@ extension WeatherViewController: UISearchBarDelegate {
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        searchBar.text = nil
         hideLabels()
+        searchBar.text = nil
         searchBar.showsCancelButton = false
         searchBar.endEditing(true)
-    }
-    
-    func searchWeather(by place: String) {
-        networkService.fetchRequest(
-            urlString: "http://api.weatherstack.com/current",
-            accessKey: "503bc119ccde64a16ae23720599aa21f",
-            query: place
-        ) { result in
-            switch result {
-                case .success(let weather):
-                    DispatchQueue.global(qos: .userInitiated).async {
-                        self.weatherModel = weather
-                        self.saveContext()
-                    }
-                    self.displayData()
-                case .failure(let error):
-                    print(error.localizedDescription)
-            }
-        }
     }
     
 }
