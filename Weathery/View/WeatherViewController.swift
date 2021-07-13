@@ -68,17 +68,26 @@ class WeatherViewController: UIViewController {
     
     func saveContext() {
         let weather = NSEntityDescription.insertNewObject(forEntityName: "Weather", into: managedObjectContext) as! Weather
-        
-        weather.location?.name = weatherModel?.location.name
-        weather.current?.temperature = Int16((weatherModel?.current.temperature)!)
-        weather.location?.localtime = weatherModel?.location.localtime
-        weather.current?.weatherDescriptions = (weatherModel?.current.weatherDescriptions.first)!
-
+        let request = NSEntityDescription.insertNewObject(forEntityName: "Request", into: managedObjectContext) as! Request
+        let location = NSEntityDescription.insertNewObject(forEntityName: "Location", into: managedObjectContext) as! Location
+        let current = NSEntityDescription.insertNewObject(forEntityName: "Current", into: managedObjectContext) as! Current
+                
+        location.name = weatherModel?.location.name
+        location.localtime = weatherModel?.location.localtime
+        current.temperature = 10
+        current.weatherDescriptions = weatherModel?.current.weatherDescriptions.first
+                
+        weather.location = location
+        weather.request = request
+        weather.current = current
+                
         do {
             try managedObjectContext.save()
-        } catch let error as NSError {
-            print(error.localizedDescription)
+        } catch let error {
+            print("Managed object saving error: \(error)")
         }
+
+        
     }
     
     func searchWeather(by place: String) {
