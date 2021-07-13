@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17709" systemVersion="19H2" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Current" representedClassName="Current" syncable="YES">
+        <attribute name="cloudcover" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="feelslike" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="humidity" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="isDay" optional="YES" attributeType="String"/>
+        <attribute name="observationTime" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="precip" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="pressure" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="temperature" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="uvIndex" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="visibility" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="weatherCode" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="weatherDescriptions" optional="YES" attributeType="String"/>
+        <attribute name="weatherIcons" optional="YES" attributeType="String"/>
+        <attribute name="windDegree" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="windDir" optional="YES" attributeType="String"/>
+        <attribute name="windSpeed" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="weather" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Weather" inverseName="current" inverseEntity="Weather"/>
+    </entity>
+    <entity name="Location" representedClassName="Location" syncable="YES">
+        <attribute name="country" optional="YES" attributeType="String"/>
+        <attribute name="lat" optional="YES" attributeType="String"/>
+        <attribute name="localtime" optional="YES" attributeType="String"/>
+        <attribute name="localtimeEpoch" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="lon" optional="YES" attributeType="String"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="region" optional="YES" attributeType="String"/>
+        <attribute name="timezoneID" optional="YES" attributeType="String"/>
+        <attribute name="utcOffset" optional="YES" attributeType="String"/>
+        <relationship name="weather" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Weather" inverseName="location" inverseEntity="Weather"/>
+    </entity>
+    <entity name="Request" representedClassName="Request" syncable="YES">
+        <attribute name="language" optional="YES" attributeType="String"/>
+        <attribute name="query" optional="YES" attributeType="String"/>
+        <attribute name="type" optional="YES" attributeType="String"/>
+        <attribute name="unit" optional="YES" attributeType="String"/>
+        <relationship name="weather" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Weather" inverseName="request" inverseEntity="Weather"/>
+    </entity>
+    <entity name="Weather" representedClassName="Weather" syncable="YES">
+        <relationship name="current" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Current" inverseName="weather" inverseEntity="Current"/>
+        <relationship name="location" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Location" inverseName="weather" inverseEntity="Location"/>
+        <relationship name="request" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Request" inverseName="weather" inverseEntity="Request"/>
+    </entity>
+    <elements>
+        <element name="Weather" positionX="-63" positionY="-18" width="128" height="28"/>
+        <element name="Request" positionX="-54" positionY="-9" width="128" height="28"/>
+        <element name="Current" positionX="-36" positionY="9" width="128" height="28"/>
+        <element name="Location" positionX="-18" positionY="27" width="128" height="28"/>
+    </elements>
+</model>

@@ -12,15 +12,16 @@ class ForecastHistoryVC: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
     var managedObjectContext = (UIApplication.shared.delegate as! AppDelegate).managedObjectContext
+    //(UIApplication.shared.delegate as! AppDelegate).managedObjectContext
     var fetchedResultsController = NSFetchedResultsController<NSFetchRequestResult>()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setupTableView()
         
         fetchedResultsController = getFetchedController()
         fetchedResultsController.delegate = self
+        
         do {
             try fetchedResultsController.performFetch()
         } catch {
@@ -36,7 +37,7 @@ class ForecastHistoryVC: UIViewController {
     
     func getFetchedController() -> NSFetchedResultsController<NSFetchRequestResult> {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Weather")
-        let sortDescriptor = NSSortDescriptor(key: "temperature", ascending: true)
+        let sortDescriptor = NSSortDescriptor(key: "location.name", ascending: true)
         fetchRequest.sortDescriptors = [sortDescriptor]
         
         let fetchResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
@@ -58,10 +59,13 @@ extension ForecastHistoryVC: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: ForecastViewCell.cellIdentifier, for: indexPath) as! ForecastViewCell
         
         let object = fetchedResultsController.object(at: indexPath) as! Weather
-        cell.localtimeLabel.text = object.location?.localtime
-        cell.placeLabel.text = object.location?.name
-        cell.tempLabel.text = "\(object.current!.temperature)"
-        cell.descriptLabel.text = object.current?.weatherDescriptions
+        DispatchQueue.main.async {
+                cell.localtimeLabel.text = object.location?.localtime
+                cell.placeLabel.text = object.location?.name
+//                cell.tempLabel.text = "\(object.current!.temperature)"
+                cell.descriptLabel.text = object.current?.weatherDescriptions
+        }
+
         return cell
     }
     
