@@ -19,6 +19,10 @@ class WeatherViewController: UIViewController {
     @IBOutlet weak var windLabel: UILabel!
     @IBOutlet weak var pressureLabel: UILabel!
     @IBOutlet weak var humidityLabel: UILabel!
+    @IBOutlet weak var windImage: UIImageView!
+    @IBOutlet weak var pressureImage: UIImageView!
+    @IBOutlet weak var humidityImage: UIImageView!
+    
     
     var weatherModel: WeatherModel?
     let networkService = NetworkService()
@@ -74,7 +78,7 @@ class WeatherViewController: UIViewController {
                 
         location.name = weatherModel?.location.name
         location.localtime = weatherModel?.location.localtime
-        current.temperature = 10
+        current.temperature = (weatherModel?.current.temperature)!
         current.weatherDescriptions = weatherModel?.current.weatherDescriptions.first
                 
         weather.location = location
