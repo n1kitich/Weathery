@@ -62,7 +62,7 @@ extension ForecastHistoryVC: UITableViewDelegate, UITableViewDataSource {
         DispatchQueue.main.async {
                 cell.localtimeLabel.text = object.location?.localtime
                 cell.placeLabel.text = object.location?.name
-//                cell.tempLabel.text = "\(object.current!.temperature)"
+                cell.tempLabel.text = "\(object.current!.temperature)"
                 cell.descriptLabel.text = object.current?.weatherDescriptions
         }
 
