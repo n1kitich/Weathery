@@ -22,7 +22,8 @@ struct CurrentModel: Codable {
     let weatherDescriptions: [String]
     let windSpeed, windDegree: Int
     let windDir: String
-    let pressure, precip, humidity, cloudcover: Int
+    let precip: Double
+    let pressure, humidity, cloudcover: Int
     let feelslike, uvIndex, visibility: Int
     let isDay: String
 
