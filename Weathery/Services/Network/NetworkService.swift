@@ -9,29 +9,29 @@ import Foundation
 
 class NetworkService {
     
-    func fetchRequest(urlString: String, accessKey: String, query: String, completion: @escaping (Result<WeatherModel, Error>) -> Void) {
-            
+    func request(urlString: String, accessKey: String, query: String, completion: @escaping (Data?, Error?) -> Void) {
         let urlStr = urlString + "?access_key=" + accessKey + "&query=" + query
-
         guard let url = URL(string: urlStr ) else { return }
+        let request = URLRequest(url: url)
 
-        URLSession.shared.dataTask(with: url) { (data, response, error) in
+        let urlSession = createDataTask(with: request, completion: completion)
+        urlSession.resume()
+    }
+    
+    private func createDataTask(with request: URLRequest, completion: @escaping (Data?, Error?) -> Void) -> URLSessionDataTask {
+        return URLSession.shared.dataTask(with: request, completionHandler: {
+            (data, response, error) in
             DispatchQueue.main.async {
                 if let error = error {
-                    print("Error:", error.localizedDescription)
-                    completion(.failure(error))
+                    completion(data, error)
                 }
                 if let data = data {
-                    do {
-                        let forecast = try JSONDecoder().decode(WeatherModel.self, from: data)
-                        completion(.success(forecast))
-                    } catch let jsonError{
-                        completion(.failure(jsonError))
-                    }
+                    completion(data, error)
                 }
             }
-        }.resume()
+        })
     }
+    
 }
 
 
