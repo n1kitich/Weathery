@@ -12,7 +12,6 @@ class ForecastHistoryVC: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
     var managedObjectContext = (UIApplication.shared.delegate as! AppDelegate).managedObjectContext
-    //(UIApplication.shared.delegate as! AppDelegate).managedObjectContext
     var fetchedResultsController = NSFetchedResultsController<NSFetchRequestResult>()
     
     override func viewDidLoad() {
