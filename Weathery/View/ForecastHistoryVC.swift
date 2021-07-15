@@ -33,6 +33,7 @@ class ForecastHistoryVC: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(ForecastViewCell.nib(), forCellReuseIdentifier: ForecastViewCell.cellIdentifier)
+        tableView.separatorInset = UIEdgeInsets.zero
     }
     
     func getFetchedController() -> NSFetchedResultsController<NSFetchRequestResult> {
@@ -62,7 +63,7 @@ extension ForecastHistoryVC: UITableViewDelegate, UITableViewDataSource {
         DispatchQueue.main.async {
                 cell.localtimeLabel.text = object.location?.localtime
                 cell.placeLabel.text = object.location?.name
-                cell.tempLabel.text = "\(object.current!.temperature)"
+                cell.tempLabel.text = "\(object.current!.temperature) °C"
                 cell.descriptLabel.text = object.current?.weatherDescriptions
         }
 
