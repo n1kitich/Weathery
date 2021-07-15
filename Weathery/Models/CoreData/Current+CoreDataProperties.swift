@@ -25,7 +25,7 @@ extension Current {
     @NSManaged public var windDegree: Int16
     @NSManaged public var windDir: String?
     @NSManaged public var pressure: Int16
-    @NSManaged public var precip: Int16
+    @NSManaged public var precip: Double
     @NSManaged public var humidity: Int16
     @NSManaged public var cloudcover: Int16
     @NSManaged public var feelslike: Int16
