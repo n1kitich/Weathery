@@ -25,7 +25,7 @@ class WeatherViewController: UIViewController {
     
     
     var weatherModel: WeatherModel?
-    let networkService = NetworkService()
+    let dataFetcher = NetworkDataFetcher()
     var managedObjectContext = (UIApplication.shared.delegate as! AppDelegate).managedObjectContext
     
     let segueID = "goToHistory"
@@ -90,25 +90,14 @@ class WeatherViewController: UIViewController {
         } catch let error {
             print("Managed object saving error: \(error)")
         }
-
         
     }
     
     func searchWeather(by place: String) {
-        networkService.fetchRequest(
-            urlString: "http://api.weatherstack.com/current",
-            accessKey: "503bc119ccde64a16ae23720599aa21f",
-            query: place
-        ) { result in
-            switch result {
-                case .success(let weather):
-                    // многопоточность, тестировать
-                    self.weatherModel = weather
-                    self.saveContext()
-                    self.displayData()
-                case .failure(let error):
-                    print("Fetch data error: \(error.localizedDescription)")
-            }
+        dataFetcher.fetchData(urlString: "http://api.weatherstack.com/current", accessKey: "503bc119ccde64a16ae23720599aa21f", query: place) { weatherForecast in
+            self.weatherModel = weatherForecast
+            self.saveContext()
+            self.displayData()
         }
     }
     
