@@ -23,10 +23,9 @@ class WeatherViewController: UIViewController {
     @IBOutlet weak var pressureImage: UIImageView!
     @IBOutlet weak var humidityImage: UIImageView!
     
-    
     var weatherModel: WeatherModel?
     let dataFetcher = NetworkDataFetcher()
-    var managedObjectContext = (UIApplication.shared.delegate as! AppDelegate).managedObjectContext
+    lazy var coreDataManager = CoreDataManager(modelName: "WeatherCD")
     
     let segueID = "goToHistory"
     let url = "https://goweather.herokuapp.com/weather"
@@ -47,7 +46,6 @@ class WeatherViewController: UIViewController {
         searchLine.returnKeyType = .search
         searchLine.enablesReturnKeyAutomatically = true
     }
-    
     func hideLabels() {
         placeLabel.text = ""
         updatedTimeLabel.text = ""
@@ -70,11 +68,11 @@ class WeatherViewController: UIViewController {
         humidityLabel.text = String((weatherModel?.current.humidity)!)
     }
     
-    func saveContext() {
-        let weather = NSEntityDescription.insertNewObject(forEntityName: "Weather", into: managedObjectContext) as! Weather
-        let request = NSEntityDescription.insertNewObject(forEntityName: "Request", into: managedObjectContext) as! Request
-        let location = NSEntityDescription.insertNewObject(forEntityName: "Location", into: managedObjectContext) as! Location
-        let current = NSEntityDescription.insertNewObject(forEntityName: "Current", into: managedObjectContext) as! Current
+    func saveDataToStore() {
+        let weather = NSEntityDescription.insertNewObject(forEntityName: "Weather", into: coreDataManager.managedContext) as! Weather
+        let request = NSEntityDescription.insertNewObject(forEntityName: "Request", into: coreDataManager.managedContext) as! Request
+        let location = NSEntityDescription.insertNewObject(forEntityName: "Location", into: coreDataManager.managedContext) as! Location
+        let current = NSEntityDescription.insertNewObject(forEntityName: "Current", into: coreDataManager.managedContext) as! Current
                 
         location.name = weatherModel?.location.name
         location.localtime = weatherModel?.location.localtime
@@ -85,25 +83,20 @@ class WeatherViewController: UIViewController {
         weather.request = request
         weather.current = current
                 
-        do {
-            try managedObjectContext.save()
-        } catch let error {
-            print("Managed object saving error: \(error)")
-        }
-        
+        coreDataManager.saveContext()
     }
     
     func searchWeather(by place: String) {
         dataFetcher.fetchData(urlString: "http://api.weatherstack.com/current", accessKey: "503bc119ccde64a16ae23720599aa21f", query: place) { weatherForecast in
             self.weatherModel = weatherForecast
-            self.saveContext()
+            self.saveDataToStore()
             self.displayData()
         }
     }
     
 }
 
-// MARK: - UISearchBarDelegate
+// MARK: - SearchBar Delegate
 extension WeatherViewController: UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
