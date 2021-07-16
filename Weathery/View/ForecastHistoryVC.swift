@@ -11,7 +11,7 @@ import CoreData
 class ForecastHistoryVC: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
-    var managedObjectContext = (UIApplication.shared.delegate as! AppDelegate).managedObjectContext
+    lazy var coreDataManager = CoreDataManager(modelName: "WeatherCD")
     var fetchedResultsController = NSFetchedResultsController<NSFetchRequestResult>()
     
     override func viewDidLoad() {
@@ -40,7 +40,7 @@ class ForecastHistoryVC: UIViewController {
         let sortDescriptor = NSSortDescriptor(key: "location.name", ascending: true)
         fetchRequest.sortDescriptors = [sortDescriptor]
         
-        let fetchResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
+        let fetchResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: coreDataManager.managedContext, sectionNameKeyPath: nil, cacheName: nil)
         
         return fetchResultsController
     }
@@ -60,10 +60,10 @@ extension ForecastHistoryVC: UITableViewDelegate, UITableViewDataSource {
         
         let object = fetchedResultsController.object(at: indexPath) as! Weather
         DispatchQueue.main.async {
-                cell.localtimeLabel.text = object.location?.localtime
-                cell.placeLabel.text = object.location?.name
-                cell.tempLabel.text = "\(object.current!.temperature) °C"
-                cell.descriptLabel.text = object.current?.weatherDescriptions
+            cell.localtimeLabel.text = object.location?.localtime
+            cell.placeLabel.text = object.location?.name
+            cell.tempLabel.text = "\(object.current!.temperature) °C"
+            cell.descriptLabel.text = object.current?.weatherDescriptions
         }
 
         return cell
@@ -74,12 +74,7 @@ extension ForecastHistoryVC: UITableViewDelegate, UITableViewDataSource {
         let managedObject = fetchedResultsController.object(at: indexPath) as! NSManagedObject
         
         if editingStyle == .delete {
-            managedObjectContext.delete(managedObject)
-            do {
-                try managedObjectContext.save()
-            } catch {
-                print("Failed to delete object")
-            }
+            coreDataManager.deleteManagedObject(managedObject)
         }
     }
 }
