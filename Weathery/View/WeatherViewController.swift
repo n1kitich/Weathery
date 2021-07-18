@@ -7,6 +7,7 @@
 
 import UIKit
 import CoreData
+import CoreLocation
 
 class WeatherViewController: UIViewController {
 
@@ -26,6 +27,7 @@ class WeatherViewController: UIViewController {
     var weatherModel: WeatherModel?
     let dataFetcher = NetworkDataFetcher()
     lazy var coreDataManager = CoreDataManager(modelName: "WeatherCD")
+    var locationManager = CLLocationManager()
     
     let segueID = "goToHistory"
     let url = "https://goweather.herokuapp.com/weather"
@@ -34,6 +36,13 @@ class WeatherViewController: UIViewController {
         super.viewDidLoad()
         hideLabels()
         searchLineSetup()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
     }
     
     @IBAction func toForecastHistory(_ sender: UIBarButtonItem) {
@@ -117,5 +126,9 @@ extension WeatherViewController: UISearchBarDelegate {
         searchBar.showsCancelButton = false
         searchBar.endEditing(true)
     }
+}
+
+extension WeatherViewController: CLLocationManagerDelegate {
     
+    ///
 }
