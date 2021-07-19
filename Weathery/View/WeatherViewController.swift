@@ -40,9 +40,7 @@ class WeatherViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-        locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        setupLocationManager()
     }
     
     @IBAction func toForecastHistory(_ sender: UIBarButtonItem) {
@@ -55,6 +53,15 @@ class WeatherViewController: UIViewController {
         searchLine.returnKeyType = .search
         searchLine.enablesReturnKeyAutomatically = true
     }
+    
+    func setupLocationManager() {
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyKilometer
+        locationManager.requestWhenInUseAuthorization()
+        //locationManager.requestLocation()
+        locationManager.startUpdatingLocation()
+    }
+    
     func hideLabels() {
         placeLabel.text = ""
         updatedTimeLabel.text = ""
@@ -85,6 +92,7 @@ class WeatherViewController: UIViewController {
                 
         location.name = weatherModel?.location.name
         location.localtime = weatherModel?.location.localtime
+        //shoud fix
         current.temperature = (weatherModel?.current.temperature)!
         current.weatherDescriptions = weatherModel?.current.weatherDescriptions.first
                 
@@ -129,6 +137,16 @@ extension WeatherViewController: UISearchBarDelegate {
 }
 
 extension WeatherViewController: CLLocationManagerDelegate {
-    
-    ///
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let location = locations.first {
+            let latitude = location.coordinate.latitude
+            let longitude = location.coordinate.longitude
+            let coordinate = "\(latitude),\(longitude)"
+            print(coordinate)
+            searchWeather(by: coordinate)
+        }
+    }
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        updatedTimeLabel.text = "Can`t find your position"
+    }
 }
