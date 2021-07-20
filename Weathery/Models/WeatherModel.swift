@@ -17,7 +17,7 @@ struct WeatherModel: Codable {
 // MARK: - Current
 struct CurrentModel: Codable {
     let observationTime: String
-    let temperature, weatherCode: Int16
+    let temperature, weatherCode: Int
     let weatherIcons: [String]
     let weatherDescriptions: [String]
     let windSpeed, windDegree: Int
