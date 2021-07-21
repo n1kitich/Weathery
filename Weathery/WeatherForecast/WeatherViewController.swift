@@ -57,8 +57,8 @@ class WeatherViewController: UIViewController {
     func setupLocationManager() {
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyKilometer
-        locationManager.requestWhenInUseAuthorization()
-        //locationManager.requestLocation()
+//        locationManager.requestWhenInUseAuthorization()
+        locationManager.requestLocation()
         locationManager.startUpdatingLocation()
     }
     

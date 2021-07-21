@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ForecastViewCell: UITableViewCell {
+class SearchHistoryViewCell: UITableViewCell {
     
     @IBOutlet weak var localtimeLabel: UILabel!
     @IBOutlet weak var placeLabel: UILabel!
@@ -17,12 +17,6 @@ class ForecastViewCell: UITableViewCell {
     static let cellIdentifier = "Cell"
     
     static func nib() -> UINib {
-        return UINib(nibName: "ForecastViewCell", bundle: nil)
+        return UINib(nibName: "SearchHistoryViewCell", bundle: nil)
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-    }
-    
 }

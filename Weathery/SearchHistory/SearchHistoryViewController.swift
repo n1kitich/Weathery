@@ -8,17 +8,32 @@
 import UIKit
 import CoreData
 
-class ForecastHistoryVC: UIViewController {
+class SearchHistoryViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
     lazy var coreDataManager = CoreDataManager(modelName: "WeatherCD")
-    var fetchedResultsController = NSFetchedResultsController<NSFetchRequestResult>()
+    var fetchedResultsController: NSFetchedResultsController<NSFetchRequestResult>!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupTableView()
         
-        fetchedResultsController = getFetchedController()
+        setupTableView()
+        initializeFetchedResultsController()
+    }
+    
+    func setupTableView() {
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.register(SearchHistoryViewCell.nib(), forCellReuseIdentifier: SearchHistoryViewCell.cellIdentifier)
+        tableView.separatorInset = UIEdgeInsets.zero
+    }
+    
+    func initializeFetchedResultsController() {
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Weather")
+        let sortDescriptor = NSSortDescriptor(key: "location.name", ascending: true)
+        request.sortDescriptors = [sortDescriptor]
+        
+        fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: coreDataManager.managedContext, sectionNameKeyPath: nil, cacheName: nil)
         fetchedResultsController.delegate = self
         
         do {
@@ -27,36 +42,23 @@ class ForecastHistoryVC: UIViewController {
             print("Fetch is losing")
         }
     }
-    
-    func setupTableView() {
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.register(ForecastViewCell.nib(), forCellReuseIdentifier: ForecastViewCell.cellIdentifier)
-        tableView.separatorInset = UIEdgeInsets.zero
-    }
-    
-    func getFetchedController() -> NSFetchedResultsController<NSFetchRequestResult> {
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Weather")
-        let sortDescriptor = NSSortDescriptor(key: "location.name", ascending: true)
-        fetchRequest.sortDescriptors = [sortDescriptor]
-        
-        let fetchResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: coreDataManager.managedContext, sectionNameKeyPath: nil, cacheName: nil)
-        
-        return fetchResultsController
-    }
 
 }
 
 // MARK: Configure table view
-extension ForecastHistoryVC: UITableViewDelegate, UITableViewDataSource {
+extension SearchHistoryViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let numberOfRows = fetchedResultsController.sections?[section].numberOfObjects ?? 0
-        return numberOfRows
+        guard let sections = fetchedResultsController.sections else {
+            fatalError("No sections in fetchedResultsController")
+        }
+        let sectionInfo = sections[section]
+        
+        return sectionInfo.numberOfObjects
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: ForecastViewCell.cellIdentifier, for: indexPath) as! ForecastViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: SearchHistoryViewCell.cellIdentifier, for: indexPath) as! SearchHistoryViewCell
         
         let object = fetchedResultsController.object(at: indexPath) as! Weather
         DispatchQueue.main.async {
@@ -70,9 +72,7 @@ extension ForecastHistoryVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        
         let managedObject = fetchedResultsController.object(at: indexPath) as! NSManagedObject
-        
         if editingStyle == .delete {
             coreDataManager.deleteManagedObject(managedObject)
         }
@@ -80,7 +80,7 @@ extension ForecastHistoryVC: UITableViewDelegate, UITableViewDataSource {
 }
     
 //MARK: - Refresh fetched controller
-extension ForecastHistoryVC: NSFetchedResultsControllerDelegate {
+extension SearchHistoryViewController: NSFetchedResultsControllerDelegate {
     
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
         if type == .delete {
@@ -91,5 +91,5 @@ extension ForecastHistoryVC: NSFetchedResultsControllerDelegate {
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         tableView.reloadData()
     }
-    
+
 }
