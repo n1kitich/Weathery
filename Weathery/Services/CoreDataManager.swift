@@ -47,7 +47,7 @@ class CoreDataManager {
         do {
             try managedContext.save()
         } catch {
-            print("Failed to delete object")
+            fatalError("Failed to delete object")
         }
     }
 
