@@ -90,8 +90,8 @@
 			children = (
 				1FE5A95B26A82CFC0050E848 /* WeatherForecast */,
 				1FE5A95C26A82D260050E848 /* SearchHistory */,
-				1F9394B42688BF7A00404BAF /* Models */,
 				1FF5874E269E019E004266CE /* Services */,
+				1F9394B42688BF7A00404BAF /* Models */,
 				1F9394A92688B97700404BAF /* Views */,
 				1F9394AA2688B98600404BAF /* Supporting Files */,
 				1F93949D2688A02300404BAF /* Info.plist */,
