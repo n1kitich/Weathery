@@ -36,10 +36,6 @@ class WeatherViewController: UIViewController {
         super.viewDidLoad()
         hideLabels()
         searchLineSetup()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
         setupLocationManager()
     }
     
@@ -57,7 +53,6 @@ class WeatherViewController: UIViewController {
     func setupLocationManager() {
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyKilometer
-//        locationManager.requestWhenInUseAuthorization()
         locationManager.requestLocation()
         locationManager.startUpdatingLocation()
     }
@@ -145,7 +140,6 @@ extension WeatherViewController: CLLocationManagerDelegate {
             let latitude = location.coordinate.latitude
             let longitude = location.coordinate.longitude
             let coordinate = "\(latitude),\(longitude)"
-            print(coordinate)
             searchWeather(by: coordinate)
         }
     }
