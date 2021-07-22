@@ -24,13 +24,12 @@ class WeatherViewController: UIViewController {
     @IBOutlet weak var pressureImage: UIImageView!
     @IBOutlet weak var humidityImage: UIImageView!
     
-    var weatherModel: WeatherModel?
+    var weatherModel: DataModel?
     let dataFetcher = NetworkDataFetcher()
     lazy var coreDataManager = CoreDataManager(modelName: "WeatherCD")
     var locationManager = CLLocationManager()
     
     let segueID = "goToHistory"
-    let url = "https://goweather.herokuapp.com/weather"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -69,40 +68,44 @@ class WeatherViewController: UIViewController {
     }
     
     func displayData() {
-        guard let weatherModel = weatherModel else { return }
+        guard weatherModel != nil else { return }
         
-        placeLabel.text = weatherModel.location.name
-        updatedTimeLabel.text = weatherModel.location.localtime
-        descriptionLabel.text = weatherModel.current.weatherDescriptions.first
-        temperatureLabel.text = String(weatherModel.current.temperature)
-        feellikeLabel.text = "Feel like: " + String(weatherModel.current.feelslike)
-        windLabel.text = String(weatherModel.current.windSpeed)
-        pressureLabel.text = String(weatherModel.current.pressure)
-        humidityLabel.text = String(weatherModel.current.humidity)
+        let date = Int(weatherModel!.dt).getDateStringFromUnix()
+        let weather = weatherModel!.weather.first
+        
+        placeLabel.text = weatherModel!.name
+        updatedTimeLabel.text = String(date)
+        descriptionLabel.text = weather?.weatherDescription
+        temperatureLabel.text = String(weatherModel!.main.temp)
+        feellikeLabel.text = "Feel like " + String(weatherModel!.main.feelsLike)
+        windLabel.text = String(weatherModel!.wind.speed) + " m/s"
+        pressureLabel.text = String(weatherModel!.main.pressure)
+        humidityLabel.text = String(weatherModel!.main.humidity)
     }
     
     func saveDataToStore() {
-        guard let weatherModel = weatherModel else { return }
+        guard weatherModel != nil else { return }
         
-        let weather = NSEntityDescription.insertNewObject(forEntityName: "Weather", into: coreDataManager.managedContext) as! Weather
-        let request = NSEntityDescription.insertNewObject(forEntityName: "Request", into: coreDataManager.managedContext) as! Request
-        let location = NSEntityDescription.insertNewObject(forEntityName: "Location", into: coreDataManager.managedContext) as! Location
         let current = NSEntityDescription.insertNewObject(forEntityName: "Current", into: coreDataManager.managedContext) as! Current
+        let weather = NSEntityDescription.insertNewObject(forEntityName: "Weather", into: coreDataManager.managedContext) as! Weather
+        let main = NSEntityDescription.insertNewObject(forEntityName: "Main", into: coreDataManager.managedContext) as! Main
+        let wind = NSEntityDescription.insertNewObject(forEntityName: "Wind", into: coreDataManager.managedContext) as! Wind
                 
-        location.name = weatherModel.location.name
-        location.localtime = weatherModel.location.localtime
-        current.temperature = Int16(weatherModel.current.temperature)
-        current.weatherDescriptions = weatherModel.current.weatherDescriptions.first
-                
-        weather.location = location
-        weather.request = request
-        weather.current = current
+        current.dt = Int32(weatherModel!.dt)
+        current.name = weatherModel!.name
+        main.temp = weatherModel!.main.temp
+        wind.speed = weatherModel!.wind.speed
+        weather.weatherDescription = weatherModel!.weather.description
+          
+        current.main = main
+        current.weather = weather
+        current.wind = wind
                 
         coreDataManager.saveContext()
     }
     
     func searchWeather(by place: String) {
-        dataFetcher.fetchData(urlString: "http://api.weatherstack.com/current", accessKey: "503bc119ccde64a16ae23720599aa21f", query: place) { weatherForecast in
+        dataFetcher.fetchData(accessKey: "8d86b5aee21d595dc197f8f8a066a108", place: place) { weatherForecast in
             self.weatherModel = weatherForecast
             self.displayData()
         }
