@@ -2,7 +2,7 @@
 //  Weather+CoreDataProperties.swift
 //  Weathery
 //
-//  Created by Anon Account on 13.07.2021.
+//  Created by Anon Account on 21.07.2021.
 //
 //
 
@@ -16,9 +16,11 @@ extension Weather {
         return NSFetchRequest<Weather>(entityName: "Weather")
     }
 
+    @NSManaged public var icon: String?
+    @NSManaged public var id: Int16
+    @NSManaged public var main: String?
+    @NSManaged public var weatherDescription: String?
     @NSManaged public var current: Current?
-    @NSManaged public var location: Location?
-    @NSManaged public var request: Request?
 
 }
 

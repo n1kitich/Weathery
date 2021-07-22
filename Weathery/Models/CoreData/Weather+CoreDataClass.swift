@@ -2,7 +2,7 @@
 //  Weather+CoreDataClass.swift
 //  Weathery
 //
-//  Created by Anon Account on 13.07.2021.
+//  Created by Anon Account on 21.07.2021.
 //
 //
 

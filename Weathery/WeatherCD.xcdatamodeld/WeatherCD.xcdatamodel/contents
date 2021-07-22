@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17709" systemVersion="19H2" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="Clouds" representedClassName="Clouds" syncable="YES" codeGenerationType="class">
+    <entity name="Clouds" representedClassName="Clouds" syncable="YES">
         <attribute name="all" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
-        <relationship name="current" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Current" inverseName="clouds" inverseEntity="Current"/>
+        <relationship name="current" optional="YES" maxCount="1" deletionRule="No Action" destinationEntity="Current" inverseName="clouds" inverseEntity="Current"/>
     </entity>
-    <entity name="Coord" representedClassName="Coord" syncable="YES" codeGenerationType="class">
+    <entity name="Coord" representedClassName="Coord" syncable="YES">
         <attribute name="lat" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="lon" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <relationship name="current" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Current" inverseName="coord" inverseEntity="Current"/>
+        <relationship name="current" optional="YES" maxCount="1" deletionRule="No Action" destinationEntity="Current" inverseName="coord" inverseEntity="Current"/>
     </entity>
     <entity name="Current" representedClassName="Current" syncable="YES">
         <attribute name="base" optional="YES" attributeType="String"/>
@@ -17,49 +17,49 @@
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="timezone" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="visibility" optional="YES" attributeType="String"/>
-        <relationship name="clouds" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Clouds" inverseName="current" inverseEntity="Clouds"/>
-        <relationship name="coord" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Coord" inverseName="current" inverseEntity="Coord"/>
-        <relationship name="main" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Main" inverseName="current" inverseEntity="Main"/>
-        <relationship name="sys" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Sys" inverseName="current" inverseEntity="Sys"/>
-        <relationship name="weather" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Weather" inverseName="current" inverseEntity="Weather"/>
-        <relationship name="wind" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Wind" inverseName="current" inverseEntity="Wind"/>
+        <relationship name="clouds" optional="YES" maxCount="1" deletionRule="No Action" destinationEntity="Clouds" inverseName="current" inverseEntity="Clouds"/>
+        <relationship name="coord" optional="YES" maxCount="1" deletionRule="No Action" destinationEntity="Coord" inverseName="current" inverseEntity="Coord"/>
+        <relationship name="main" optional="YES" maxCount="1" deletionRule="No Action" destinationEntity="Main" inverseName="current" inverseEntity="Main"/>
+        <relationship name="sys" optional="YES" maxCount="1" deletionRule="No Action" destinationEntity="Sys" inverseName="current" inverseEntity="Sys"/>
+        <relationship name="weather" optional="YES" maxCount="1" deletionRule="No Action" destinationEntity="Weather" inverseName="current" inverseEntity="Weather"/>
+        <relationship name="wind" optional="YES" maxCount="1" deletionRule="No Action" destinationEntity="Wind" inverseName="current" inverseEntity="Wind"/>
     </entity>
-    <entity name="Main" representedClassName="Main" syncable="YES" codeGenerationType="class">
+    <entity name="Main" representedClassName="Main" syncable="YES">
         <attribute name="feelsLike" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="humidity" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="pressure" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="temoMax" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="temp" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="tempMin" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <relationship name="current" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Current" inverseName="main" inverseEntity="Current"/>
+        <relationship name="current" optional="YES" maxCount="1" deletionRule="No Action" destinationEntity="Current" inverseName="main" inverseEntity="Current"/>
     </entity>
-    <entity name="Sys" representedClassName="Sys" syncable="YES" codeGenerationType="class">
+    <entity name="Sys" representedClassName="Sys" syncable="YES">
         <attribute name="country" optional="YES" attributeType="String"/>
         <attribute name="id" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="sunrise" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="sunset" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="type" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
-        <relationship name="current" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Current" inverseName="sys" inverseEntity="Current"/>
+        <relationship name="current" optional="YES" maxCount="1" deletionRule="No Action" destinationEntity="Current" inverseName="sys" inverseEntity="Current"/>
     </entity>
-    <entity name="Weather" representedClassName="Weather" syncable="YES" codeGenerationType="class">
+    <entity name="Weather" representedClassName="Weather" syncable="YES">
         <attribute name="icon" optional="YES" attributeType="String"/>
         <attribute name="id" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="main" optional="YES" attributeType="String"/>
         <attribute name="weatherDescription" optional="YES" attributeType="String"/>
-        <relationship name="current" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Current" inverseName="weather" inverseEntity="Current"/>
+        <relationship name="current" optional="YES" maxCount="1" deletionRule="No Action" destinationEntity="Current" inverseName="weather" inverseEntity="Current"/>
     </entity>
-    <entity name="Wind" representedClassName="Wind" syncable="YES" codeGenerationType="class">
+    <entity name="Wind" representedClassName="Wind" syncable="YES">
         <attribute name="deg" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="speed" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <relationship name="current" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Current" inverseName="wind" inverseEntity="Current"/>
+        <relationship name="current" optional="YES" maxCount="1" deletionRule="No Action" destinationEntity="Current" inverseName="wind" inverseEntity="Current"/>
     </entity>
     <elements>
-        <element name="Current" positionX="-63" positionY="-18" width="128" height="238"/>
-        <element name="Clouds" positionX="-27" positionY="117" width="128" height="73"/>
-        <element name="Coord" positionX="0" positionY="126" width="128" height="88"/>
-        <element name="Main" positionX="27" positionY="135" width="128" height="148"/>
-        <element name="Sys" positionX="-18" positionY="117" width="128" height="133"/>
-        <element name="Wind" positionX="-9" positionY="126" width="128" height="88"/>
-        <element name="Weather" positionX="0" positionY="135" width="128" height="118"/>
+        <element name="Clouds" positionX="-36" positionY="9" width="128" height="73"/>
+        <element name="Weather" positionX="0" positionY="45" width="128" height="118"/>
+        <element name="Sys" positionX="27" positionY="72" width="128" height="133"/>
+        <element name="Main" positionX="54" positionY="99" width="128" height="148"/>
+        <element name="Coord" positionX="9" positionY="54" width="128" height="88"/>
+        <element name="Current" positionX="18" positionY="63" width="128" height="238"/>
+        <element name="Wind" positionX="27" positionY="72" width="128" height="88"/>
     </elements>
 </model>
