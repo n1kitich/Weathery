@@ -9,9 +9,9 @@ import Foundation
 
 class NetworkService {
     
-    func request(urlString: String, accessKey: String, query: String, completion: @escaping (Data?, Error?) -> Void) {
-        let urlStr = urlString + "?access_key=" + accessKey + "&query=" + query
-        guard let url = URL(string: urlStr ) else { return }
+    func request(accessKey: String, place: String, completion: @escaping (Data?, Error?) -> Void) {
+        let urlString = "https://api.openweathermap.org/data/2.5/weather?q=\(place)&units=metric&appid=\(accessKey)"
+        guard let url = URL(string: urlString) else { return }
         let request = URLRequest(url: url)
 
         let urlSession = createDataTask(with: request, completion: completion)

@@ -15,13 +15,12 @@ class NetworkDataFetcher {
         self.networkService = networkService
     }
     
-    func fetchData(urlString: String, accessKey: String, query: String, completion: @escaping (WeatherModel?) -> Void) {
-        
-        networkService.request(urlString: urlString, accessKey: accessKey, query: query) {
+    func fetchData(accessKey: String, place: String, completion: @escaping (DataModel?) -> Void) {
+        networkService.request(accessKey: accessKey, place: place) {
             (data, error) in
             let decoder = JSONDecoder()
             guard let data = data else { return }
-            let response = try? decoder.decode(WeatherModel.self, from: data)
+            let response = try? decoder.decode(DataModel.self, from: data)
             completion(response)
         }
     }
