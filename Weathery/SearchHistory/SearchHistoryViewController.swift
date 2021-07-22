@@ -29,8 +29,8 @@ class SearchHistoryViewController: UIViewController {
     }
     
     func initializeFetchedResultsController() {
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Weather")
-        let sortDescriptor = NSSortDescriptor(key: "location.name", ascending: true)
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Current")
+        let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
         request.sortDescriptors = [sortDescriptor]
         
         fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: coreDataManager.managedContext, sectionNameKeyPath: nil, cacheName: nil)
@@ -60,12 +60,14 @@ extension SearchHistoryViewController: UITableViewDelegate, UITableViewDataSourc
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: SearchHistoryViewCell.cellIdentifier, for: indexPath) as! SearchHistoryViewCell
         
-        let object = fetchedResultsController.object(at: indexPath) as! Weather
+        let object = fetchedResultsController.object(at: indexPath) as! Current
+        let localTime = Int(object.dt)
+        
         DispatchQueue.main.async {
-            cell.localtimeLabel.text = object.location?.localtime
-            cell.placeLabel.text = object.location?.name
-            cell.tempLabel.text = "\(object.current!.temperature) °C"
-            cell.descriptLabel.text = object.current?.weatherDescriptions
+            cell.localtimeLabel.text = localTime.getDateStringFromUnix()
+            cell.placeLabel.text = object.name
+            cell.tempLabel.text = "\(object.main.temp) °C"
+            cell.descriptLabel.text = object.weather.weatherDescription
         }
 
         return cell
