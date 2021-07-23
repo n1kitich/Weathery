@@ -2,7 +2,7 @@
 //  Main+CoreDataProperties.swift
 //  Weathery
 //
-//  Created by Anon Account on 21.07.2021.
+//  Created by Anon Account on 23.07.2021.
 //
 //
 
@@ -16,12 +16,12 @@ extension Main {
         return NSFetchRequest<Main>(entityName: "Main")
     }
 
-    @NSManaged public var feelsLike: Double
-    @NSManaged public var humidity: Int16
-    @NSManaged public var pressure: Int16
-    @NSManaged public var temoMax: Double
     @NSManaged public var temp: Double
+    @NSManaged public var feelsLike: Double
     @NSManaged public var tempMin: Double
+    @NSManaged public var tempMax: Double
+    @NSManaged public var pressure: Int16
+    @NSManaged public var humidity: Int16
     @NSManaged public var current: Current?
 
 }

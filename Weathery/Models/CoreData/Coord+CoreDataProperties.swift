@@ -2,7 +2,7 @@
 //  Coord+CoreDataProperties.swift
 //  Weathery
 //
-//  Created by Anon Account on 21.07.2021.
+//  Created by Anon Account on 23.07.2021.
 //
 //
 
@@ -16,8 +16,8 @@ extension Coord {
         return NSFetchRequest<Coord>(entityName: "Coord")
     }
 
-    @NSManaged public var lat: Double
     @NSManaged public var lon: Double
+    @NSManaged public var lat: Double
     @NSManaged public var current: Current?
 
 }

@@ -2,7 +2,7 @@
 //  Wind+CoreDataProperties.swift
 //  Weathery
 //
-//  Created by Anon Account on 21.07.2021.
+//  Created by Anon Account on 23.07.2021.
 //
 //
 
@@ -16,8 +16,8 @@ extension Wind {
         return NSFetchRequest<Wind>(entityName: "Wind")
     }
 
-    @NSManaged public var deg: Int16
     @NSManaged public var speed: Double
+    @NSManaged public var deg: Int16
     @NSManaged public var current: Current?
 
 }
