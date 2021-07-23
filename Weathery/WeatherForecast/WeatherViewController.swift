@@ -95,7 +95,7 @@ class WeatherViewController: UIViewController {
         current.name = weatherModel!.name
         main.temp = weatherModel!.main.temp
         wind.speed = weatherModel!.wind.speed
-        weather.weatherDescription = weatherModel!.weather.description
+        weather.weatherDescription = weatherModel!.weather.first?.weatherDescription
           
         current.main = main
         current.weather = weather
