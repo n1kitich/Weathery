@@ -10,8 +10,9 @@ import Foundation
 class NetworkService {
     
     func request(accessKey: String, place: String, completion: @escaping (Data?, Error?) -> Void) {
-        let urlString = "https://api.openweathermap.org/data/2.5/weather?q=\(place)&units=metric&appid=\(accessKey)"
-        guard let url = URL(string: urlString) else { return }
+        let endpoint = Endpoint(query: place, accessKey: accessKey)
+        guard let url = endpoint.url else { return}
+        
         let request = URLRequest(url: url)
 
         let urlSession = createDataTask(with: request, completion: completion)
@@ -22,12 +23,8 @@ class NetworkService {
         return URLSession.shared.dataTask(with: request, completionHandler: {
             (data, response, error) in
             DispatchQueue.main.async {
-                if let error = error {
-                    completion(data, error)
-                }
-                if let data = data {
-                    completion(data, error)
-                }
+                if let error = error { completion(data, error) }
+                if let data  = data  { completion(data, error) }
             }
         })
     }
