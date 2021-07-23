@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1F23C03826AB410E00B5C506 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F23C03726AB410E00B5C506 /* Endpoint.swift */; };
 		1F533C1326A9E06B00DA6A6C /* DataFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F533C1226A9E06B00DA6A6C /* DataFormatter.swift */; };
 		1F86016226941D23009BB302 /* SearchHistoryViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F86016026941D23009BB302 /* SearchHistoryViewCell.swift */; };
 		1F86016326941D23009BB302 /* SearchHistoryViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F86016126941D23009BB302 /* SearchHistoryViewCell.xib */; };
@@ -39,6 +40,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1F23C03726AB410E00B5C506 /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		1F533C1226A9E06B00DA6A6C /* DataFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataFormatter.swift; sourceTree = "<group>"; };
 		1F86016026941D23009BB302 /* SearchHistoryViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistoryViewCell.swift; sourceTree = "<group>"; };
 		1F86016126941D23009BB302 /* SearchHistoryViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchHistoryViewCell.xib; sourceTree = "<group>"; };
@@ -188,6 +190,7 @@
 				1F9394AD2688BE5000404BAF /* NetworkService.swift */,
 				1FF5751826A0797400E23AFB /* NetworkDataFetcher.swift */,
 				1F533C1226A9E06B00DA6A6C /* DataFormatter.swift */,
+				1F23C03726AB410E00B5C506 /* Endpoint.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -279,6 +282,7 @@
 				1FDD4BEA26AB308E00277C2C /* Coord+CoreDataProperties.swift in Sources */,
 				1F86016226941D23009BB302 /* SearchHistoryViewCell.swift in Sources */,
 				1FDD4BE726AB308E00277C2C /* Wind+CoreDataClass.swift in Sources */,
+				1F23C03826AB410E00B5C506 /* Endpoint.swift in Sources */,
 				1FDD4BEB26AB308E00277C2C /* Sys+CoreDataClass.swift in Sources */,
 				1FDD4BF026AB308E00277C2C /* Weather+CoreDataProperties.swift in Sources */,
 				1FC5DBEE269D927200AC0ACC /* CoreDataManager.swift in Sources */,
