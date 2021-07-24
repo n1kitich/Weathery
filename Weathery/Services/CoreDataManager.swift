@@ -50,6 +50,5 @@ class CoreDataManager {
             fatalError("Failed to delete object")
         }
     }
-
 }
 
