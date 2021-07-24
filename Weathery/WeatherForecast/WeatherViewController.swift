@@ -108,6 +108,7 @@ class WeatherViewController: UIViewController {
         dataFetcher.fetchData(accessKey: "8d86b5aee21d595dc197f8f8a066a108", place: place) { weatherForecast in
             self.weatherModel = weatherForecast
             self.displayData()
+            self.saveDataToStore()
         }
     }
     
@@ -115,13 +116,11 @@ class WeatherViewController: UIViewController {
 
 // MARK: - SearchBar Delegate
 extension WeatherViewController: UISearchBarDelegate {
-    
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.showsCancelButton = false
         searchBar.resignFirstResponder()
         if let text = searchBar.text {
             searchWeather(by: text)
-            saveDataToStore()
         }
     }
     
