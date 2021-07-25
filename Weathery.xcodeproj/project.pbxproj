@@ -18,7 +18,7 @@
 		1F93949C2688A02300404BAF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F93949A2688A02300404BAF /* LaunchScreen.storyboard */; };
 		1F9394A62688B96600404BAF /* WeatherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9394A52688B96600404BAF /* WeatherViewController.swift */; };
 		1F9394AE2688BE5000404BAF /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9394AD2688BE5000404BAF /* NetworkService.swift */; };
-		1F9394B62688BF8B00404BAF /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9394B52688BF8B00404BAF /* DataModel.swift */; };
+		1F9394B62688BF8B00404BAF /* CurrentWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9394B52688BF8B00404BAF /* CurrentWeather.swift */; };
 		1FC5DBEE269D927200AC0ACC /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC5DBED269D927200AC0ACC /* CoreDataManager.swift */; };
 		1FD67A9D2689D8170031C122 /* SearchHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD67A9C2689D8170031C122 /* SearchHistoryViewController.swift */; };
 		1FDD4BD326AB2D0300277C2C /* WeatherCD.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1FDD4BD126AB2D0300277C2C /* WeatherCD.xcdatamodeld */; };
@@ -53,7 +53,7 @@
 		1F93949D2688A02300404BAF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1F9394A52688B96600404BAF /* WeatherViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewController.swift; sourceTree = "<group>"; };
 		1F9394AD2688BE5000404BAF /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
-		1F9394B52688BF8B00404BAF /* DataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
+		1F9394B52688BF8B00404BAF /* CurrentWeather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentWeather.swift; sourceTree = "<group>"; };
 		1FC5DBED269D927200AC0ACC /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		1FD67A9C2689D8170031C122 /* SearchHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistoryViewController.swift; sourceTree = "<group>"; };
 		1FDD4BD226AB2D0300277C2C /* WeatherCD.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = WeatherCD.xcdatamodel; sourceTree = "<group>"; };
@@ -137,7 +137,7 @@
 		1F9394B42688BF7A00404BAF /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				1F9394B52688BF8B00404BAF /* DataModel.swift */,
+				1F9394B52688BF8B00404BAF /* CurrentWeather.swift */,
 				1FD97CC12698CC06008C46C1 /* CoreData */,
 			);
 			path = Models;
@@ -183,14 +183,22 @@
 			path = SearchHistory;
 			sourceTree = "<group>";
 		};
+		1FE7460326ADDBEC0051F984 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				1F9394AD2688BE5000404BAF /* NetworkService.swift */,
+				1FF5751826A0797400E23AFB /* NetworkDataFetcher.swift */,
+				1F23C03726AB410E00B5C506 /* Endpoint.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
 		1FF5874E269E019E004266CE /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				1FE7460326ADDBEC0051F984 /* Network */,
 				1FC5DBED269D927200AC0ACC /* CoreDataManager.swift */,
-				1F9394AD2688BE5000404BAF /* NetworkService.swift */,
-				1FF5751826A0797400E23AFB /* NetworkDataFetcher.swift */,
 				1F533C1226A9E06B00DA6A6C /* DataFormatter.swift */,
-				1F23C03726AB410E00B5C506 /* Endpoint.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -290,7 +298,7 @@
 				1FDD4BD326AB2D0300277C2C /* WeatherCD.xcdatamodeld in Sources */,
 				1F533C1326A9E06B00DA6A6C /* DataFormatter.swift in Sources */,
 				1F9394922688A02200404BAF /* SceneDelegate.swift in Sources */,
-				1F9394B62688BF8B00404BAF /* DataModel.swift in Sources */,
+				1F9394B62688BF8B00404BAF /* CurrentWeather.swift in Sources */,
 				1FDD4BE326AB308E00277C2C /* Clouds+CoreDataClass.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
