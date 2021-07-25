@@ -33,7 +33,6 @@ class CoreDataManager {
     
     func saveContext() {
         guard managedContext.hasChanges else { return }
-
         do {
             try managedContext.save()
         } catch {
