@@ -14,8 +14,8 @@ class NetworkService {
         guard let url = endpoint.url else { return}
         
         let request = URLRequest(url: url)
-
         let urlSession = createDataTask(with: request, completion: completion)
+        
         urlSession.resume()
     }
     
