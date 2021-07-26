@@ -22,7 +22,7 @@
         <relationship name="main" maxCount="1" deletionRule="Nullify" destinationEntity="Main" inverseName="current" inverseEntity="Main"/>
         <relationship name="sys" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Sys" inverseName="current" inverseEntity="Sys"/>
         <relationship name="weather" maxCount="1" deletionRule="Nullify" destinationEntity="Weather" inverseName="current" inverseEntity="Weather"/>
-        <relationship name="wind" maxCount="1" deletionRule="Nullify" destinationEntity="Wind" inverseName="current" inverseEntity="Wind"/>
+        <relationship name="wind" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Wind" inverseName="current" inverseEntity="Wind"/>
     </entity>
     <entity name="Main" representedClassName="Main" syncable="YES">
         <attribute name="feelsLike" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
@@ -54,12 +54,12 @@
         <relationship name="current" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Current" inverseName="wind" inverseEntity="Current"/>
     </entity>
     <elements>
-        <element name="Current" positionX="-63" positionY="-18" width="128" height="238"/>
         <element name="Clouds" positionX="-54" positionY="-9" width="128" height="73"/>
         <element name="Coord" positionX="-36" positionY="9" width="128" height="88"/>
+        <element name="Current" positionX="-63" positionY="-18" width="128" height="238"/>
+        <element name="Main" positionX="36" positionY="81" width="128" height="148"/>
         <element name="Sys" positionX="-18" positionY="27" width="128" height="133"/>
         <element name="Weather" positionX="0" positionY="45" width="128" height="118"/>
         <element name="Wind" positionX="18" positionY="63" width="128" height="88"/>
-        <element name="Main" positionX="36" positionY="81" width="128" height="148"/>
     </elements>
 </model>

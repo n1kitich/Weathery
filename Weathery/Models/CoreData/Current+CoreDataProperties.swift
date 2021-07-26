@@ -26,7 +26,7 @@ extension Current {
     @NSManaged public var coord: Coord?
     @NSManaged public var weather: Weather
     @NSManaged public var main: Main
-    @NSManaged public var wind: Wind
+    @NSManaged public var wind: Wind?
     @NSManaged public var clouds: Clouds?
     @NSManaged public var sys: Sys?
 
