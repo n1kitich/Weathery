@@ -24,7 +24,6 @@ class WeatherViewController: UIViewController {
     @IBOutlet weak var pressureImage: UIImageView!
     @IBOutlet weak var humidityImage: UIImageView!
     
-    //var currentWeather: CurrentWeather?
     let dataFetcher = NetworkDataFetcher()
     lazy var coreDataManager = CoreDataManager(modelName: "WeatherCD")
     var locationManager = CLLocationManager()
@@ -68,7 +67,6 @@ class WeatherViewController: UIViewController {
     }
     
     func updateUI(with currentWeather: CurrentWeather) {
-        
         let date = Int(currentWeather.dt).getDateStringFromUnix()
         let weather = currentWeather.weather.first
         
@@ -83,21 +81,17 @@ class WeatherViewController: UIViewController {
     }
     
     func saveDataToStore(_ currentWeather: CurrentWeather) {
-        
         let current = NSEntityDescription.insertNewObject(forEntityName: "Current", into: coreDataManager.managedContext) as! Current
         let weather = NSEntityDescription.insertNewObject(forEntityName: "Weather", into: coreDataManager.managedContext) as! Weather
         let main = NSEntityDescription.insertNewObject(forEntityName: "Main", into: coreDataManager.managedContext) as! Main
-        let wind = NSEntityDescription.insertNewObject(forEntityName: "Wind", into: coreDataManager.managedContext) as! Wind
                 
         current.dt = Int32(currentWeather.dt)
         current.name = currentWeather.name
         main.temp = currentWeather.main.temp
-        wind.speed = currentWeather.wind.speed
         weather.weatherDescription = currentWeather.weather.first?.weatherDescription
           
         current.main = main
         current.weather = weather
-        current.wind = wind
                 
         coreDataManager.saveContext()
     }
@@ -116,7 +110,6 @@ class WeatherViewController: UIViewController {
             }
         }
     }
-    
 }
 
 // MARK: - SearchBar Delegate
@@ -150,6 +143,7 @@ extension WeatherViewController: CLLocationManagerDelegate {
             searchWeather(by: coordinate)
         }
     }
+    
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         updatedTimeLabel.text = "Can`t find your current position"
     }
