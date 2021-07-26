@@ -62,11 +62,12 @@ extension SearchHistoryViewController: UITableViewDelegate, UITableViewDataSourc
         
         let object = fetchedResultsController.object(at: indexPath) as! Current
         let localTime = Int(object.dt)
+//        let description = object.weather.weatherDescription ?? "none"
         
         DispatchQueue.main.async {
             cell.localtimeLabel.text = localTime.getDateStringFromUnix()
             cell.placeLabel.text = object.name
-            cell.tempLabel.text = "\(object.main.temp) °C"
+            cell.tempLabel.text = "\(object.main.temp)°"
             cell.descriptLabel.text = object.weather.weatherDescription
         }
 
