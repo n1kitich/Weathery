@@ -67,17 +67,14 @@ class WeatherViewController: UIViewController {
     }
     
     func updateUI(with currentWeather: CurrentWeather) {
-        let date = Int(currentWeather.dt).getDateStringFromUnix()
-        let weather = currentWeather.weather.first
-        
         placeLabel.text = currentWeather.name
-        updatedTimeLabel.text = String(date)
-        descriptionLabel.text = weather?.weatherDescription
-        temperatureLabel.text = String(currentWeather.main.temp)
-        feellikeLabel.text = "Feel like " + String(currentWeather.main.feelsLike)
-        windLabel.text = String(currentWeather.wind.speed) + " m/s"
-        pressureLabel.text = String(currentWeather.main.pressure)
-        humidityLabel.text = String(currentWeather.main.humidity)
+        updatedTimeLabel.text = currentWeather.dt.getDateStringFromUnix()
+        descriptionLabel.text = currentWeather.weather.first?.weatherDescription.capitalized
+        temperatureLabel.text = currentWeather.main.tempString
+        feellikeLabel.text = "Feel like " + currentWeather.main.feelsLikeString
+        windLabel.text = currentWeather.wind.speedString
+        pressureLabel.text = currentWeather.main.pressureString
+        humidityLabel.text = currentWeather.main.humidityString
     }
     
     func saveDataToStore(_ currentWeather: CurrentWeather) {
@@ -87,12 +84,11 @@ class WeatherViewController: UIViewController {
                 
         current.dt = Int32(currentWeather.dt)
         current.name = currentWeather.name
-        main.temp = currentWeather.main.temp
         weather.weatherDescription = currentWeather.weather.first?.weatherDescription
+        main.temp = currentWeather.main.temp
           
         current.main = main
         current.weather = weather
-                
         coreDataManager.saveContext()
     }
     
