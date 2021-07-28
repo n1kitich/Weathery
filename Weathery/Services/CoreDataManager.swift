@@ -31,6 +31,11 @@ class CoreDataManager {
         return persistentContainer.viewContext
     }()
     
+
+}
+
+//MARK: - Internal
+extension CoreDataManager {
     func saveContext() {
         guard managedContext.hasChanges else { return }
         do {
