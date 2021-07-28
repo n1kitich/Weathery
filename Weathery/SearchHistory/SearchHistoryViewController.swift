@@ -1,4 +1,4 @@
-//
+ //
 //  ForecastHistoryVC.swift
 //  Weathery
 //
@@ -11,14 +11,17 @@ import CoreData
 class SearchHistoryViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
+    
     lazy var coreDataManager = CoreDataManager(modelName: "WeatherCD")
     var fetchedResultsController: NSFetchedResultsController<NSFetchRequestResult>!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setupTableView()
         initializeFetchedResultsController()
+    }
+    
+    @IBAction func clearHistory(_ sender: UIBarButtonItem) {
     }
     
     func setupTableView() {
