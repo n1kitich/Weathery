@@ -15,19 +15,25 @@ class NetworkDataFetcher {
         self.networkService = networkService
     }
     
-    func fetchData(accessKey: String, place: String, completion: @escaping (Result<CurrentWeather, Error>) -> Void) {
-        networkService.request(accessKey: accessKey, place: place) {
-            (data, error) in
-            guard let data = data else { return }
-            let decoder = JSONDecoder()
-            do {
-                let response = try decoder.decode(CurrentWeather.self, from: data)
-                completion(.success(response))
-            } catch {
-                completion(.failure(error))
+    func fetchData<T>(accessKey: String, query: T, completion: @escaping (Result<CurrentWeather, Error>) -> Void) {
+        networkService.request(accessKey: accessKey, query: query) { (data, error) in
+            if let fetchError = error {
+                completion(.failure(fetchError))
             }
-            
-            
+            if let data = data {
+                let decoded = self.decodeJSON(data: data)
+                completion(.success(decoded))
+            }
+        }
+    }
+
+    func decodeJSON(data: Data) -> CurrentWeather {
+        let decoder = JSONDecoder()
+        do {
+            let objects = try decoder.decode(CurrentWeather.self, from: data)
+            return objects
+        } catch let jsonError {
+            fatalError("Can`t decode data: \(jsonError.localizedDescription)")
         }
     }
 }
