@@ -230,7 +230,13 @@
                             <constraint firstItem="6cq-bI-LZk" firstAttribute="trailing" secondItem="zEe-Kl-WnK" secondAttribute="trailing" id="pgx-5w-HdS"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="75W-nS-kT2"/>
+                    <navigationItem key="navigationItem" id="75W-nS-kT2">
+                        <barButtonItem key="rightBarButtonItem" title="Item" id="A4j-ke-DzD">
+                            <connections>
+                                <action selector="clearHistory:" destination="O87-Ly-DvY" id="09C-6g-6tx"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="zEe-Kl-WnK" id="urd-iz-faV"/>
                     </connections>
