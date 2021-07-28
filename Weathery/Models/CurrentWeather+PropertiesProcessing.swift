@@ -8,16 +8,31 @@
 import Foundation
 
 extension MainModel {
-    
     var tempString: String {
-        return "\(temp.roundToDecimal(0))°"
+        var temperature = temp
+        return "\(temperature.roundedToInt())"
     }
     
+    var feelsLikeString: String {
+        var feel = feelsLike
+        return "\(feel.roundedToInt())°"
+    }
 }
 
-extension Double {
-    func roundToDecimal(_ fractionDigits: Int) -> Double {
-        let multiplier = pow(10, Double(fractionDigits))
-        return Darwin.round(self * multiplier) / multiplier
+extension MainModel {
+    var pressureString: String {
+        return "\(pressure)"
+    }
+    
+    var humidityString: String {
+        return "\(humidity)"
     }
 }
+
+extension WindModel {
+    var speedString: String {
+        return "\(speed) m/s"
+    }
+}
+
+
