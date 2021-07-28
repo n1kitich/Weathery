@@ -92,8 +92,8 @@ class WeatherViewController: UIViewController {
         coreDataManager.saveContext()
     }
     
-    func searchWeather(by place: String) {
-        dataFetcher.fetchData(accessKey: "8d86b5aee21d595dc197f8f8a066a108", place: place) {
+    func searchWeather<QueryType>(by query: QueryType) {
+        dataFetcher.fetchData(accessKey: "8d86b5aee21d595dc197f8f8a066a108", query: query) {
             result in
             switch result {
             case .success(let weather):
@@ -135,7 +135,7 @@ extension WeatherViewController: CLLocationManagerDelegate {
         if let location = locations.first {
             let latitude = location.coordinate.latitude
             let longitude = location.coordinate.longitude
-            let coordinate = "\(latitude),\(longitude)"
+            let coordinate = (String(latitude), String(longitude))
             searchWeather(by: coordinate)
         }
     }
