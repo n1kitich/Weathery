@@ -9,9 +9,10 @@ import Foundation
 
 class NetworkService {
     
-    func request(accessKey: String, place: String, completion: @escaping (Data?, Error?) -> Void) {
-        let endpoint = Endpoint(query: place, accessKey: accessKey)
-        guard let url = endpoint.url else { return}
+    func request<T>(accessKey: String, query: T, completion: @escaping (Data?, Error?) -> Void) {
+        let endpoint = Endpoint(accessKey: accessKey, query: query)
+//        print(endpoint.url?.absoluteString)
+        guard let url = endpoint.url else { return }
         
         let request = URLRequest(url: url)
         let urlSession = createDataTask(with: request, completion: completion)
