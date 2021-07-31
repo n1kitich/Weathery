@@ -97,9 +97,11 @@ class WeatherViewController: UIViewController {
             result in
             switch result {
             case .success(let weather):
+                DispatchQueue.global().async {
+                    self.saveDataToStore(weather)
+                }
                 DispatchQueue.main.async {
                     self.updateUI(with: weather)
-                    self.saveDataToStore(weather)
                 }
             case .failure(let error):
                 fatalError("\(error)")
