@@ -20,21 +20,20 @@ class NetworkDataFetcher {
             if let fetchError = error {
                 completion(.failure(fetchError))
             }
-            if let data = data {
-                let decoded = self.decodeJSON(data: data)
-                completion(.success(decoded))
-            }
+            guard let data = data, let decoded = self.decodeJSON(data: data) else { return }
+            completion(.success(decoded))
         }
     }
 
-    func decodeJSON(data: Data) -> CurrentWeather {
+    func decodeJSON(data: Data) -> CurrentWeather? {
         let decoder = JSONDecoder()
         do {
             let objects = try decoder.decode(CurrentWeather.self, from: data)
             return objects
         } catch let jsonError {
-            fatalError("Can`t decode data: \(jsonError.localizedDescription)")
+            print("Can`t decode data: \(jsonError)")
         }
+        return nil
     }
 }
 
