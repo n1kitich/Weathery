@@ -11,7 +11,6 @@ class NetworkService {
     
     func request<T>(accessKey: String, query: T, completion: @escaping (Data?, Error?) -> Void) {
         let endpoint = Endpoint(accessKey: accessKey, query: query)
-//        print(endpoint.url?.absoluteString)
         guard let url = endpoint.url else { return }
         
         let request = URLRequest(url: url)
