@@ -3,7 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>This app uses your location to personalize your app experience.</string>
+	<string>Display Message for Location</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Display Message for Location</string>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>
