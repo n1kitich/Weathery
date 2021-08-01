@@ -37,19 +37,22 @@ struct CoordModel: Codable {
 struct MainModel: Codable {
     let temp, feelsLike, tempMin, tempMax: Double
     let pressure, humidity: Int
+    let seaLevel, grndLevel: Int?
 
     enum CodingKeys: String, CodingKey {
         case temp
         case feelsLike = "feels_like"
         case tempMin = "temp_min"
         case tempMax = "temp_max"
+        case seaLevel = "sea_level"
+        case grndLevel = "grnd_level"
         case pressure, humidity
     }
 }
 
 // MARK: - Sys
 struct SysModel: Codable {
-    let type, id: Int
+    let type, id: Int?
     let country: String
     let sunrise, sunset: Int
 }
@@ -70,4 +73,5 @@ struct WeatherModel: Codable {
 struct WindModel: Codable {
     let speed: Double
     let deg: Int
+    let gust: Double?
 }
