@@ -51,7 +51,7 @@ class WeatherViewController: UIViewController {
     func setupLocationManager() {
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyKilometer
-        locationManager.requestLocation()
+        locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
     }
     
@@ -97,8 +97,10 @@ class WeatherViewController: UIViewController {
             result in
             switch result {
             case .success(let weather):
-                DispatchQueue.global().async {
-                    self.saveDataToStore(weather)
+                if let _ = query as? String {
+                    DispatchQueue.global().async {
+                        self.saveDataToStore(weather)
+                    }
                 }
                 DispatchQueue.main.async {
                     self.updateUI(with: weather)
@@ -132,13 +134,17 @@ extension WeatherViewController: UISearchBarDelegate {
     }
 }
 
+
+// MARK: - Location Delegate
 extension WeatherViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = locations.first {
-            let latitude = location.coordinate.latitude
-            let longitude = location.coordinate.longitude
-            let coordinate = (String(latitude), String(longitude))
-            searchWeather(by: coordinate)
+            var coordinate = CLLocationCoordinate2D()
+            coordinate.latitude = location.coordinate.latitude
+            coordinate.longitude = location.coordinate.longitude
+            DispatchQueue.global().async {
+                self.searchWeather(by: coordinate)
+            }
         }
     }
     
