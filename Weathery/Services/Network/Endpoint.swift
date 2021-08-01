@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CoreLocation
 
 struct Endpoint<T> {
     let accessKey: String
@@ -25,10 +26,10 @@ struct Endpoint<T> {
             ]
             return urlComponents.url
         }
-        if let coordinates = query as? (String, String) {
+        if let coordinates = query as? CLLocationCoordinate2D {
             urlComponents.queryItems = [
-                URLQueryItem(name: "lat", value: coordinates.0),
-                URLQueryItem(name: "lon", value: coordinates.1),
+                URLQueryItem(name: "lat", value: String(coordinates.latitude)),
+                URLQueryItem(name: "lon", value: String(coordinates.longitude)),
                 URLQueryItem(name: "units", value: "metric"),
                 URLQueryItem(name: "appid", value: accessKey)
             ]
