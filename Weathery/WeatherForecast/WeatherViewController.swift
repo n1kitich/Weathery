@@ -92,18 +92,16 @@ class WeatherViewController: UIViewController {
         coreDataManager.saveContext()
     }
     
-    func searchWeather<QueryType>(by query: QueryType) {
-        dataFetcher.fetchData(accessKey: "8d86b5aee21d595dc197f8f8a066a108", query: query) {
-            result in
+    func searchWeather<T>(by query: T, with type: QueryType) {
+        dataFetcher.fetchData(accessKey: "8d86b5aee21d595dc197f8f8a066a108", query: query) { result in
             switch result {
             case .success(let weather):
-                if let _ = query as? String {
-                    DispatchQueue.global().async {
-                        self.saveDataToStore(weather)
-                    }
-                }
                 DispatchQueue.main.async {
                     self.updateUI(with: weather)
+                }
+                guard type == .simple else { return }
+                DispatchQueue.global().async {
+                    self.saveDataToStore(weather)
                 }
             case .failure(let error):
                 fatalError("\(error)")
@@ -119,7 +117,7 @@ extension WeatherViewController: UISearchBarDelegate {
         searchBar.resignFirstResponder()
         
         guard let text = searchBar.text else { return }
-        searchWeather(by: text)
+        searchWeather(by: text, with: .simple)
     }
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
@@ -142,8 +140,8 @@ extension WeatherViewController: CLLocationManagerDelegate {
             var coordinate = CLLocationCoordinate2D()
             coordinate.latitude = location.coordinate.latitude
             coordinate.longitude = location.coordinate.longitude
-            DispatchQueue.global().async {
-                self.searchWeather(by: coordinate)
+            DispatchQueue.global(qos: .utility).async {
+                self.searchWeather(by: coordinate, with: .coordinate)
             }
         }
     }
