@@ -8,6 +8,11 @@
 import Foundation
 import CoreLocation
 
+enum QueryType {
+    case simple
+    case coordinate
+}
+
 struct Endpoint<T> {
     let accessKey: String
     let query: T
