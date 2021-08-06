@@ -106,32 +106,27 @@
 		1F93948E2688A02200404BAF /* Weathery */ = {
 			isa = PBXGroup;
 			children = (
+				1FF7DADB26BDB6FA00F128E4 /* Application */,
 				1FE5A95B26A82CFC0050E848 /* WeatherForecast */,
 				1FE5A95C26A82D260050E848 /* SearchHistory */,
-				1FF5874E269E019E004266CE /* Services */,
-				1F9394B42688BF7A00404BAF /* Models */,
-				1F9394A92688B97700404BAF /* Views */,
 				1F9394AA2688B98600404BAF /* Supporting Files */,
-				1F93949D2688A02300404BAF /* Info.plist */,
 			);
 			path = Weathery;
 			sourceTree = "<group>";
 		};
-		1F9394A92688B97700404BAF /* Views */ = {
+		1F9394A92688B97700404BAF /* View */ = {
 			isa = PBXGroup;
 			children = (
-				1F9394952688A02200404BAF /* Main.storyboard */,
 				1F93949A2688A02300404BAF /* LaunchScreen.storyboard */,
 			);
-			path = Views;
+			path = View;
 			sourceTree = "<group>";
 		};
 		1F9394AA2688B98600404BAF /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				1F93948F2688A02200404BAF /* AppDelegate.swift */,
-				1F9394912688A02200404BAF /* SceneDelegate.swift */,
 				1F9394982688A02300404BAF /* Assets.xcassets */,
+				1F93949D2688A02300404BAF /* Info.plist */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -142,7 +137,6 @@
 				1F9394B52688BF8B00404BAF /* CurrentWeather.swift */,
 				1FBA518826B09AEB001ACFC7 /* CurrentWeather+PropertiesProcessing.swift */,
 				1F533C1226A9E06B00DA6A6C /* DataFormatter.swift */,
-				1FD97CC12698CC06008C46C1 /* CoreData */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -172,7 +166,9 @@
 		1FE5A95B26A82CFC0050E848 /* WeatherForecast */ = {
 			isa = PBXGroup;
 			children = (
-				1F9394A52688B96600404BAF /* WeatherViewController.swift */,
+				1F9394B42688BF7A00404BAF /* Models */,
+				1FF7DAD926BDB63D00F128E4 /* View */,
+				1FF7DADA26BDB64700F128E4 /* Controller */,
 			);
 			path = WeatherForecast;
 			sourceTree = "<group>";
@@ -180,9 +176,8 @@
 		1FE5A95C26A82D260050E848 /* SearchHistory */ = {
 			isa = PBXGroup;
 			children = (
-				1FD67A9C2689D8170031C122 /* SearchHistoryViewController.swift */,
-				1F86016026941D23009BB302 /* SearchHistoryViewCell.swift */,
-				1F86016126941D23009BB302 /* SearchHistoryViewCell.xib */,
+				1FF7DAD826BDB5FE00F128E4 /* View */,
+				1FF7DAD726BDB5E800F128E4 /* Controller */,
 			);
 			path = SearchHistory;
 			sourceTree = "<group>";
@@ -204,6 +199,67 @@
 				1FC5DBED269D927200AC0ACC /* CoreDataManager.swift */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		1FF7DAD726BDB5E800F128E4 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				1FD67A9C2689D8170031C122 /* SearchHistoryViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		1FF7DAD826BDB5FE00F128E4 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				1F86016026941D23009BB302 /* SearchHistoryViewCell.swift */,
+				1F86016126941D23009BB302 /* SearchHistoryViewCell.xib */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		1FF7DAD926BDB63D00F128E4 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				1F9394952688A02200404BAF /* Main.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		1FF7DADA26BDB64700F128E4 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				1F9394A52688B96600404BAF /* WeatherViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		1FF7DADB26BDB6FA00F128E4 /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				1FF7DADE26BDB78200F128E4 /* Model */,
+				1F9394A92688B97700404BAF /* View */,
+				1FF7DADD26BDB72600F128E4 /* Controller */,
+				1FF5874E269E019E004266CE /* Services */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		1FF7DADD26BDB72600F128E4 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				1F93948F2688A02200404BAF /* AppDelegate.swift */,
+				1F9394912688A02200404BAF /* SceneDelegate.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		1FF7DADE26BDB78200F128E4 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				1FD97CC12698CC06008C46C1 /* CoreData */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -452,7 +508,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 67QQ5H3P35;
-				INFOPLIST_FILE = Weathery/Info.plist;
+				INFOPLIST_FILE = "Weathery/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -471,7 +527,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 67QQ5H3P35;
-				INFOPLIST_FILE = Weathery/Info.plist;
+				INFOPLIST_FILE = "Weathery/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
